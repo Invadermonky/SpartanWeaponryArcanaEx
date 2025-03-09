@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:crossbow_infused_iron"
+  },
+  "pattern": [
+    "BTI",
+    "TW ",
+    "I H"
+  ],
+  "key": {
+    "I": {
+      "item": "naturesaura:infused_iron"
+    },
+    "T": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "logWood"
+    },
+    "B": {
+      "item": "minecraft:bow",
+      "data": 0
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 0
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "natural_altar"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:crossbow_infused_iron"
+    }
+  ]
+}

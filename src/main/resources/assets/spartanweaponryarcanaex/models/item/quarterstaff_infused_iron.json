@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/staff",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/quarterstaff/quarterstaff_infused_iron"
+  }
+}

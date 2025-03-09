@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/parrying_dagger_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/parrying_dagger/parrying_dagger_infused_iron"
+  }
+}

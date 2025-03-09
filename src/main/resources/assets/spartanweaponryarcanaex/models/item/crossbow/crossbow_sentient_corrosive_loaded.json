@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/crossbow_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/crossbow/crossbow_sentient_corrosive_loaded"
+  }
+}

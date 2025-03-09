@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:longbow_cold_iron"
+  },
+  "pattern": [
+    "HSI",
+    "S T",
+    "ITT"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotColdIron"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "stickWood"
+    },
+    "T": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 0
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "frostfire"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:longbow_cold_iron"
+    }
+  ]
+}

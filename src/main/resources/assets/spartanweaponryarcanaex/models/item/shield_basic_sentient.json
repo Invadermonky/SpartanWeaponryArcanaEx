@@ -1,0 +1,78 @@
+{
+  "parent": "spartanshields:item/shield_basic_base",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/shield/shield_basic_sentient"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_default"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_default_blocking"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_corrosive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_corrosive_blocking"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_destructive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_destructive_blocking"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_vengeful"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_vengeful_blocking"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_steadfast"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_basic_sentient_steadfast_blocking"
+    }
+  ]
+}

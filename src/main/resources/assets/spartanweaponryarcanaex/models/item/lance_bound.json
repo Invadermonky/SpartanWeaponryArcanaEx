@@ -1,0 +1,15 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "bloodmagic:items/Item_deactivated"
+  },
+  "overrides": [
+    {
+      "__comment": "tool enabled",
+      "predicate": {
+        "spartanweaponryarcanaex:enabled": 1
+      },
+      "model": "spartanweaponryarcanaex:item/lance/lance_bound_enabled"
+    }
+  ]
+}

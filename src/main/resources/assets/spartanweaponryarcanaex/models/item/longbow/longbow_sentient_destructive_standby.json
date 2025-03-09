@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/longbow_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/longbow/longbow_sentient_destructive_standby"
+  }
+}

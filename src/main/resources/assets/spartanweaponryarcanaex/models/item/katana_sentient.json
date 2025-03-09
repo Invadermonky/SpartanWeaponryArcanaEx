@@ -1,0 +1,32 @@
+{
+  "parent": "spartanweaponry:item/katana_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/katana/katana_sentient"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1
+      },
+      "model": "spartanweaponryarcanaex:item/katana/katana_sentient_corrosive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2
+      },
+      "model": "spartanweaponryarcanaex:item/katana/katana_sentient_destructive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3
+      },
+      "model": "spartanweaponryarcanaex:item/katana/katana_sentient_vengeful"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4
+      },
+      "model": "spartanweaponryarcanaex:item/katana/katana_sentient_steadfast"
+    }
+  ]
+}

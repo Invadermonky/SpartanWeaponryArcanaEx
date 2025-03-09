@@ -1,0 +1,6 @@
+{
+  "parent": "spartanshields:item/shield_basic_base_blocking",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/shield/shield_basic_sentient_destructive"
+  }
+}

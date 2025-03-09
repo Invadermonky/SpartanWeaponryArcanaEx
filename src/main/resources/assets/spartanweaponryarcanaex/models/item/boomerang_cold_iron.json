@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/boomerang_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/boomerang/boomerang_cold_iron"
+  }
+}

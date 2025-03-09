@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:javelin_infused_iron"
+  },
+  "pattern": [
+    "HI"
+  ],
+  "key": {
+    "I": {
+      "item": "naturesaura:infused_iron"
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 1
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "natural_altar"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:javelin_infused_iron"
+    }
+  ]
+}

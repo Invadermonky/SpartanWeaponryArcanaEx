@@ -1,0 +1,151 @@
+{
+  "parent": "spartanweaponry:item/longbow_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/longbow/longbow_sentient_standby"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 0
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_corrosive_standby"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_corrosive_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_corrosive_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_corrosive_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 0
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_destructive_standby"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_destructive_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_destructive_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_destructive_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 0
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_vengeful_standby"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_vengeful_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_vengeful_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_vengeful_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 0
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_steadfast_standby"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_steadfast_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_steadfast_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/longbow/longbow_sentient_steadfast_pulling_2"
+    }
+  ]
+}

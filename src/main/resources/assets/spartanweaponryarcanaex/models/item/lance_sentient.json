@@ -1,0 +1,32 @@
+{
+  "parent": "spartanweaponry:item/lance_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/lance/lance_sentient"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1
+      },
+      "model": "spartanweaponryarcanaex:item/lance/lance_sentient_corrosive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2
+      },
+      "model": "spartanweaponryarcanaex:item/lance/lance_sentient_destructive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3
+      },
+      "model": "spartanweaponryarcanaex:item/lance/lance_sentient_vengeful"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4
+      },
+      "model": "spartanweaponryarcanaex:item/lance/lance_sentient_steadfast"
+    }
+  ]
+}

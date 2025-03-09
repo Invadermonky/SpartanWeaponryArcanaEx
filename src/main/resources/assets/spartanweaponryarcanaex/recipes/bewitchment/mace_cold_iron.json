@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:mace_cold_iron"
+  },
+  "pattern": [
+    " II",
+    " SI",
+    "H  "
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotColdIron"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "stickWood"
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 0
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "frostfire"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:mace_cold_iron"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:boomerang_cold_iron"
+  },
+  "pattern": [
+    "IWW",
+    "W  ",
+    "W  "
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotColdIron"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "frostfire"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:boomerang_cold_iron"
+    }
+  ]
+}

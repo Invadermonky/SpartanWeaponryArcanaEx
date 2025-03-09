@@ -1,0 +1,6 @@
+{
+  "parent": "spartanshields:item/shield_tower_wood",
+  "textures": {
+    "shield": "spartanweaponryarcanaex:entities/shield_tower_infused_crystal_4"
+  }
+}

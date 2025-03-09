@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:lance_infused_iron"
+  },
+  "pattern": [
+    "I",
+    "P",
+    "H"
+  ],
+  "key": {
+    "I": {
+      "item": "naturesaura:infused_iron"
+    },
+    "P": {
+      "item": "spartanweaponry:material",
+      "data": 1
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 0
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "natural_altar"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:lance_infused_iron"
+    }
+  ]
+}

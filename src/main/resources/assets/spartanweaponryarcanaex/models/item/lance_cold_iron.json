@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/lance_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/lance/lance_cold_iron"
+  }
+}

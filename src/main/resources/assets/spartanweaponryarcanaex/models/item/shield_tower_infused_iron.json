@@ -1,0 +1,75 @@
+{
+  "parent": "spartanshields:item/shield_tower_wood",
+  "overrides": [
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 0,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 1,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 2,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 3,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_3"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 4,
+        "blocking": 0
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_4"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 0,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_blocking_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 1,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_blocking_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 2,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_blocking_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 3,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_blocking_3"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:time": 4,
+        "blocking": 1
+      },
+      "model": "spartanweaponryarcanaex:item/shield/shield_tower_infused_iron_blocking_4"
+    }
+  ]
+}

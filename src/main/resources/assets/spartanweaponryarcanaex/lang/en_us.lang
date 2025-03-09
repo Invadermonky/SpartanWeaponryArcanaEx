@@ -1,0 +1,63 @@
+# GUI
+itemGroup.spartanweaponryarcanaex=Spartan Weaponry Arcana: Expanded
+
+# Items
+item.spartanweaponryarcanaex:crossbow_bound.name=Bound Crossbow
+item.spartanweaponryarcanaex:crossbow_infused_iron.name=Botanist's Crossbow
+item.spartanweaponryarcanaex:crossbow_wildwood.name=Wildwood-Strengthened Crossbow
+item.spartanweaponryarcanaex:crossbow_sentient.name=Sentient Crossbow
+item.spartanweaponryarcanaex:longbow_bound.name=Bound Longbow
+item.spartanweaponryarcanaex:longbow_infused_iron.name=Botanist's Longbow
+item.spartanweaponryarcanaex:longbow_wildwood.name=Wildwood-Strengthened Longbow
+item.spartanweaponryarcanaex:longbow_sentient.name=Sentient Longbow
+item.spartanshields:shield_basic_bound.name=Bound Shield
+item.spartanshields:shield_tower_bound.name=Bound Tower Shield
+item.spartanshields:shield_basic_crystal.name=Crystal Reinforced Shield
+item.spartanshields:shield_tower_crystal.name=Crystal Tower Shield
+item.spartanshields:shield_basic_infused_crystal.name=Infused Crystal Reinforced Shield
+item.spartanshields:shield_tower_infused_crystal.name=Infused Crystal Tower Shield
+item.spartanshields:shield_basic_sentient.name=Sentient Shield
+item.spartanshields:shield_tower_sentient.name=Sentient Tower Shield
+
+# Materials
+material.spartanweaponryarcanaex:material_bound=Bound
+material.spartanweaponryarcanaex:material_cold_iron=Cold Iron
+material.spartanweaponryarcanaex:material_crystal=Crystal
+material.spartanweaponryarcanaex:material_infused_crystal=Infused Crystal
+material.spartanweaponryarcanaex:material_infused_iron=Botanist's
+material.spartanweaponryarcanaex:material_living=Living
+material.spartanweaponryarcanaex:material_runed=Runed
+material.spartanweaponryarcanaex:material_sentient=Sentient
+material.spartanweaponryarcanaex:material_terrastone=Terrastone
+material.spartanweaponryarcanaex:material_wildwood=Wildwood
+
+
+# Tooltips
+tooltip.spartanweaponryarcanaex:material_aura_repair=Aura Repair
+tooltip.spartanweaponryarcanaex:material_aura_repair.desc=Sneaking repairs the weapon using aura from Aura Caches
+tooltip.spartanweaponryarcanaex:material_bonus=Material Bonus:
+tooltip.spartanweaponryarcanaex:material_bound=Bound
+tooltip.spartanweaponryarcanaex:material_bound.desc=Drains LP to increase power
+tooltip.spartanweaponryarcanaex:material_bound_bow.desc=Drains LP to create arrows
+tooltip.spartanweaponryarcanaex:material_bound_shield.desc=Drains LP to increase power when held in offhand
+tooltip.spartanweaponryarcanaex:material_cold_iron=Cold Iron
+tooltip.spartanweaponryarcanaex:material_cold_iron.desc=+50%% base weapon damage against Demon and Spirit foes
+tooltip.spartanweaponryarcanaex:material_crystal=Crystal
+tooltip.spartanweaponryarcanaex:material_crystal.desc=Uses rock crystal properties for damage and durability
+tooltip.spartanweaponryarcanaex:material_crystal_shield.desc=Uses rock crystal properties for durability
+tooltip.spartanweaponryarcanaex:material_living=Living
+tooltip.spartanweaponryarcanaex:material_living.desc=Repairs weapon durability damage
+tooltip.spartanweaponryarcanaex:material_infused_crystal=Infused Crystal
+tooltip.spartanweaponryarcanaex:material_infused_crystal.desc=Deals stellar damage on strike
+tooltip.spartanweaponryarcanaex:material_infused_crystal_bow.desc=Arrows deal stellar damage on strike
+tooltip.spartanweaponryarcanaex:material_infused_crystal_shield.desc=Chance to summon a flare when blocking damage
+tooltip.spartanweaponryarcanaex:material_infused_iron=Natural
+tooltip.spartanweaponryarcanaex:material_infused_iron.desc=Enemies struck are slowed for a few seconds
+tooltip.spartanweaponryarcanaex:material_runed=Runed
+tooltip.spartanweaponryarcanaex:material_runed.desc=Slowly repairs weapon durability damage
+tooltip.spartanweaponryarcanaex:material_sentient=Sentient
+tooltip.spartanweaponryarcanaex:material_sentient.desc=Uses demon will to unleash its full potential
+tooltip.spartanweaponryarcanaex:material_terrastone=Terrastone
+tooltip.spartanweaponryarcanaex:material_terrastone.desc=Rapidly repairs weapon durability damage
+tooltip.spartanweaponryarcanaex:material_wildwood=Wildwood
+tooltip.spartanweaponryarcanaex:material_wildwood.desc=Passively repairs weapon durability damage

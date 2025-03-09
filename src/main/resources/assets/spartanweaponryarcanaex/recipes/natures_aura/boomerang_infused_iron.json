@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:boomerang_infused_iron"
+  },
+  "pattern": [
+    "IWW",
+    "W  ",
+    "W  "
+  ],
+  "key": {
+    "I": {
+      "item": "naturesaura:infused_iron"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "natural_altar"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:boomerang_infused_iron"
+    }
+  ]
+}

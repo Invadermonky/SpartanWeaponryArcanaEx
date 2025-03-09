@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:longbow_infused_iron"
+  },
+  "pattern": [
+    "HSI",
+    "S T",
+    "ITT"
+  ],
+  "key": {
+    "I": {
+      "item": "naturesaura:infused_iron"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "stickWood"
+    },
+    "T": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 0
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "natural_altar"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:longbow_infused_iron"
+    }
+  ]
+}

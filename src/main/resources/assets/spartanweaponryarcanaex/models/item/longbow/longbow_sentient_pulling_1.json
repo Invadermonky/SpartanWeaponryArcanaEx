@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/longbow_wood_pulling_1",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/longbow/longbow_sentient_pulling_1"
+  }
+}

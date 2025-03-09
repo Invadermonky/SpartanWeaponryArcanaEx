@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:pike_cold_iron"
+  },
+  "pattern": [
+    "I",
+    "H",
+    "H"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotColdIron"
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 1
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "frostfire"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:pike_cold_iron"
+    }
+  ]
+}

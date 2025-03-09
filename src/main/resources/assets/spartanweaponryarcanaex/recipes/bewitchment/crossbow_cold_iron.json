@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:crossbow_cold_iron"
+  },
+  "pattern": [
+    "BTI",
+    "TW ",
+    "I H"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotColdIron"
+    },
+    "T": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "logWood"
+    },
+    "B": {
+      "item": "minecraft:bow",
+      "data": 0
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 0
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "frostfire"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:crossbow_cold_iron"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/glaive_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/glaive/glaive_infused_iron"
+  }
+}

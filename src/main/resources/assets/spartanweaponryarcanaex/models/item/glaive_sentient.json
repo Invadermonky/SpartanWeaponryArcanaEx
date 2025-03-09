@@ -1,0 +1,32 @@
+{
+  "parent": "spartanweaponry:item/glaive_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/glaive/glaive_sentient"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1
+      },
+      "model": "spartanweaponryarcanaex:item/glaive/glaive_sentient_corrosive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2
+      },
+      "model": "spartanweaponryarcanaex:item/glaive/glaive_sentient_destructive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3
+      },
+      "model": "spartanweaponryarcanaex:item/glaive/glaive_sentient_vengeful"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4
+      },
+      "model": "spartanweaponryarcanaex:item/glaive/glaive_sentient_steadfast"
+    }
+  ]
+}

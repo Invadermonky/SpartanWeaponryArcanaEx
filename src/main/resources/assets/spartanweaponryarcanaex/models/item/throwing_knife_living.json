@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/throwing_knife_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/throwing_knife/throwing_knife_living"
+  }
+}

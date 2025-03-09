@@ -1,0 +1,6 @@
+{
+  "parent": "spartanweaponry:item/javelin_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/javelin/javelin_cold_iron"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "conditions": {
+    "swe_configuration": "com.invadermonky.spartanweaponryarcanaex.util.factories.ConditionFactoryConfiguration",
+    "item_exists": "com.oblivioussp.spartanweaponry.util.ConditionFactoryItemExists"
+  }
+}

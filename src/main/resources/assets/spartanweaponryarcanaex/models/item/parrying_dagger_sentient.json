@@ -1,0 +1,32 @@
+{
+  "parent": "spartanweaponry:item/parrying_dagger_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/parrying_dagger/parrying_dagger_sentient"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1
+      },
+      "model": "spartanweaponryarcanaex:item/parrying_dagger/parrying_dagger_sentient_corrosive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2
+      },
+      "model": "spartanweaponryarcanaex:item/parrying_dagger/parrying_dagger_sentient_destructive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3
+      },
+      "model": "spartanweaponryarcanaex:item/parrying_dagger/parrying_dagger_sentient_vengeful"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4
+      },
+      "model": "spartanweaponryarcanaex:item/parrying_dagger/parrying_dagger_sentient_steadfast"
+    }
+  ]
+}

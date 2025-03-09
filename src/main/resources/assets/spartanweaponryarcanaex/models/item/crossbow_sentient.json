@@ -1,0 +1,231 @@
+{
+  "parent": "spartanweaponry:item/crossbow_wood",
+  "textures": {
+    "layer0": "spartanweaponryarcanaex:items/crossbow/crossbow_sentient_standby"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_pulling_0"
+    },
+     {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "pulling": 0,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_loaded"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 0,
+        "pulling": 1,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_firing"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_corrosive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_corrosive_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_corrosive_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_corrosive_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 0,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_corrosive_loaded"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 1,
+        "pulling": 1,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_corrosive_firing"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_destructive"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_destructive_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_destructive_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_destructive_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 0,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_destructive_loaded"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 2,
+        "pulling": 1,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_destructive_firing"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_vengeful"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_vengeful_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_vengeful_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_vengeful_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 0,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_vengeful_loaded"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 3,
+        "pulling": 1,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_vengeful_firing"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_steadfast"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 1
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_steadfast_pulling_0"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 1,
+        "pull": 0.65
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_steadfast_pulling_1"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_steadfast_pulling_2"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 0,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_steadfast_loaded"
+    },
+    {
+      "predicate": {
+        "spartanweaponryarcanaex:sentient": 4,
+        "pulling": 1,
+        "pull": 1.0
+      },
+      "model": "spartanweaponryarcanaex:item/crossbow/crossbow_sentient_steadfast_firing"
+    }
+  ]
+}

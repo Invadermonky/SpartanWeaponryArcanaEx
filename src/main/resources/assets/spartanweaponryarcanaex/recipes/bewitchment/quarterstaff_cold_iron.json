@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "spartanweaponryarcanaex:quarterstaff_cold_iron"
+  },
+  "pattern": [
+    "  I",
+    " H ",
+    "I  "
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotColdIron"
+    },
+    "H": {
+      "item": "spartanweaponry:material",
+      "data": 1
+    }
+  },
+  "conditions": [
+    {
+      "type": "swe_configuration",
+      "config": "frostfire"
+    },
+    {
+      "type": "item_exists",
+      "item": "spartanweaponryarcanaex:quarterstaff_cold_iron"
+    }
+  ]
+}
