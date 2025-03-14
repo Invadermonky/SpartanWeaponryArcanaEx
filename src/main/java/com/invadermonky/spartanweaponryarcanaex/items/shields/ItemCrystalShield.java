@@ -33,12 +33,20 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemCrystalShieldWrapper {
-    public static ItemShield build(String unlocName) {
-        return build(unlocName, Items.AIR);
+public class ItemCrystalShield {
+    protected final String unlocName;
+    protected final Item inertVariant;
+
+    public ItemCrystalShield(String unlocName, Item inertVariant) {
+        this.unlocName = unlocName;
+        this.inertVariant = inertVariant;
     }
 
-    public static ItemShield build(String unlocName, Item inertVariant) {
+    public ItemCrystalShield(String unlocName) {
+        this(unlocName, Items.AIR);
+    }
+
+    public ItemShield createShield() {
         class ItemCrystalShieldBasic extends ItemShieldBasic implements CrystalPropertyItem, ChargedCrystalToolBase, IDamageShield {
             protected final Item inertVariant;
             protected final boolean isInfused;

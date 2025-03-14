@@ -1,18 +1,12 @@
 package com.invadermonky.spartanweaponryarcanaex.compat;
 
-import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
 import com.invadermonky.spartanweaponryarcanaex.api.IModCompat;
-import com.invadermonky.spartanweaponryarcanaex.client.model.ModelShieldTowerSE;
 import com.invadermonky.spartanweaponryarcanaex.config.ConfigHandlerSE;
 import com.invadermonky.spartanweaponryarcanaex.items.base.*;
 import com.invadermonky.spartanweaponryarcanaex.items.wildwood.ItemWildwoodCrossbow;
 import com.invadermonky.spartanweaponryarcanaex.items.wildwood.ItemWildwoodLongbow;
 import com.invadermonky.spartanweaponryarcanaex.materials.roots.WeaponPropertyLiving;
-import com.invadermonky.spartanweaponryarcanaex.proxy.ClientProxy;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibNames;
-import com.invadermonky.spartanweaponryarcanaex.util.libs.ModIds;
-import com.oblivioussp.spartanshields.init.ItemRegistrySS;
-import com.oblivioussp.spartanshields.item.crafting.RecipeShieldBanners;
 import com.oblivioussp.spartanweaponry.init.ItemRegistrySW;
 import epicsquid.roots.init.ModItems;
 import epicsquid.roots.init.ModRecipes;
@@ -22,10 +16,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -212,37 +202,6 @@ public class RootsCompat implements IModCompat {
 
         registerFeyCraftingWildwoodBowRecipe(wildwood_crossbow, ItemRegistrySW.crossbowWood);
         registerFeyCraftingWildwoodBowRecipe(wildwood_longbow, ItemRegistrySW.longbowWood);
-
-        if(ModIds.spartan_shields.isLoaded) {
-            registerFeyCraftingLivingWeaponRecipe(living_shield_basic, ItemRegistrySS.shieldWood);
-            registerFeyCraftingLivingWeaponRecipe(living_shield_tower, ItemRegistrySS.shieldTowerWood);
-            if(living_shield_tower != null) {
-                registry.register(new RecipeShieldBanners(living_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_living")));
-            }
-
-            registerFeyCraftingRunedWeaponRecipe(runed_shield_basic, ItemRegistrySS.shieldDiamond);
-            registerFeyCraftingRunedWeaponRecipe(runed_shield_tower, ItemRegistrySS.shieldTowerDiamond);
-            if(runed_shield_tower != null) {
-                registry.register(new RecipeShieldBanners(runed_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_runed")));
-            }
-
-            registerFeyCraftingTerrastoneWeaponRecipe(terrastone_shield_basic, altRecipes ? living_shield_basic : ItemRegistrySS.shieldStone);
-            registerFeyCraftingTerrastoneWeaponRecipe(terrastone_shield_tower, altRecipes ? living_shield_tower : ItemRegistrySS.shieldTowerStone);
-            if(terrastone_shield_tower != null) {
-                registry.register(new RecipeShieldBanners(terrastone_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_terrastone")));
-            }
-
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void initClient(FMLInitializationEvent event) {
-        if(ModIds.spartan_shields.isLoaded) {
-            ClientProxy.setShieldTEISR(living_shield_tower, LibNames.living_shield_tower, "S_LIVING", new ModelShieldTowerSE());
-            ClientProxy.setShieldTEISR(runed_shield_tower, LibNames.runed_shield_tower, "S_RUNED", new ModelShieldTowerSE());
-            ClientProxy.setShieldTEISR(terrastone_shield_tower, LibNames.terrastone_shield_tower, "S_TERRASTONE", new ModelShieldTowerSE());
-        }
     }
 
     private void registerFeyCraftingLivingWeaponRecipe(Item outputItem, Item inputItem) {

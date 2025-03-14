@@ -1,9 +1,9 @@
 package com.invadermonky.spartanweaponryarcanaex.config;
 
+import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
 import net.minecraftforge.common.config.Config;
 
-//TODO: Remove before release
-//  @Config(modid = SpartanWeaponryArcanaEx.MOD_ID)
+@Config(modid = SpartanWeaponryArcanaEx.MOD_ID)
 public class ConfigHandlerSE {
     public static AstralSorceryConfigSE astral_sorcery = new AstralSorceryConfigSE();
     public static BewitchmentConfigSE bewitchment = new BewitchmentConfigSE();
@@ -16,10 +16,6 @@ public class ConfigHandlerSE {
         @Config.RequiresMcRestart
         @Config.Comment("Enables the Astral Sorcery crystal and infused crystal Spartan Weaponry variants.")
         public boolean enableCrystalWeapons = true;
-
-        @Config.RequiresMcRestart
-        @Config.Comment("Spartan Weaponry thrown weapons can now be sharpened (+10% damage increase) at the Grindstone.")
-        public boolean enableThrownWeaponSharpening = true;
     }
 
     public static class BewitchmentConfigSE {

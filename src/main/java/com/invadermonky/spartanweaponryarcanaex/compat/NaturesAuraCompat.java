@@ -1,27 +1,17 @@
 package com.invadermonky.spartanweaponryarcanaex.compat;
 
-import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
 import com.invadermonky.spartanweaponryarcanaex.api.IModCompat;
-import com.invadermonky.spartanweaponryarcanaex.client.model.ModelShieldTowerSE;
 import com.invadermonky.spartanweaponryarcanaex.config.ConfigHandlerSE;
 import com.invadermonky.spartanweaponryarcanaex.items.base.*;
 import com.invadermonky.spartanweaponryarcanaex.materials.naturesaura.WeaponPropertyAuraRepair;
 import com.invadermonky.spartanweaponryarcanaex.materials.naturesaura.WeaponPropertyInfusedIron;
-import com.invadermonky.spartanweaponryarcanaex.proxy.ClientProxy;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibNames;
-import com.invadermonky.spartanweaponryarcanaex.util.libs.ModIds;
-import com.oblivioussp.spartanshields.init.ItemRegistrySS;
-import com.oblivioussp.spartanshields.item.crafting.RecipeShieldBanners;
 import com.oblivioussp.spartanweaponry.init.ItemRegistrySW;
 import de.ellpeck.naturesaura.api.recipes.AltarRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import static com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE.*;
@@ -88,22 +78,6 @@ public class NaturesAuraCompat implements IModCompat {
         registerAltarWeaponRecipe(infused_iron_throwing_axe, ItemRegistrySW.throwingAxeIron);
         registerAltarWeaponRecipe(infused_iron_throwing_knife, ItemRegistrySW.throwingKnifeIron);
         registerAltarWeaponRecipe(infused_iron_warhammer, ItemRegistrySW.warhammerIron);
-
-        if(ModIds.spartan_shields.isLoaded) {
-            registerAltarWeaponRecipe(infused_iron_shield_basic, ItemRegistrySS.shieldIron);
-            registerAltarWeaponRecipe(infused_iron_shield_tower, ItemRegistrySS.shieldTowerIron);
-            if(infused_iron_shield_tower != null) {
-                registry.register(new RecipeShieldBanners(infused_iron_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_infused_iron")));
-            }
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void initClient(FMLInitializationEvent event) {
-        if(ModIds.spartan_shields.isLoaded) {
-            ClientProxy.setShieldTEISR(infused_iron_shield_tower, LibNames.infused_iron_shield_tower, "S_INFUSED_IRON", new ModelShieldTowerSE());
-        }
     }
 
     private void registerAltarWeaponRecipe(Item outputItem, Item inputItem) {

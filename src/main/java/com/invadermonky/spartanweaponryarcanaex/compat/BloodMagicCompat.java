@@ -8,20 +8,13 @@ import WayofTime.bloodmagic.core.registry.AlchemyArrayRecipeRegistry;
 import WayofTime.bloodmagic.item.types.ComponentTypes;
 import WayofTime.bloodmagic.soul.EnumDemonWillType;
 import WayofTime.bloodmagic.util.Utils;
-import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
 import com.invadermonky.spartanweaponryarcanaex.api.IModCompat;
-import com.invadermonky.spartanweaponryarcanaex.client.model.ModelShieldTowerSE;
 import com.invadermonky.spartanweaponryarcanaex.config.ConfigHandlerSE;
 import com.invadermonky.spartanweaponryarcanaex.items.bound.*;
 import com.invadermonky.spartanweaponryarcanaex.items.sentient.*;
-import com.invadermonky.spartanweaponryarcanaex.proxy.ClientProxy;
 import com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibAttributes;
-import com.invadermonky.spartanweaponryarcanaex.util.libs.LibNames;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibTags;
-import com.invadermonky.spartanweaponryarcanaex.util.libs.ModIds;
-import com.oblivioussp.spartanshields.init.ItemRegistrySS;
-import com.oblivioussp.spartanshields.item.crafting.RecipeShieldBanners;
 import com.oblivioussp.spartanweaponry.init.ItemRegistrySW;
 import com.oblivioussp.spartanweaponry.util.ConfigHandler;
 import net.minecraft.entity.Entity;
@@ -32,12 +25,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import static com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE.*;
@@ -157,29 +146,6 @@ public class BloodMagicCompat implements IModCompat {
         BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_throwing_axe, ItemRegistrySW.throwingAxeIron);
         BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_throwing_knife, ItemRegistrySW.throwingKnifeIron);
         BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_warhammer, ItemRegistrySW.warhammerIron);
-
-        if(ModIds.spartan_shields.isLoaded) {
-            registerBoundToolRecipe(ModItemsSE.bound_shield_basic, ItemRegistrySS.shieldDiamond);
-            registerBoundToolRecipe(ModItemsSE.bound_shield_tower, ItemRegistrySS.shieldTowerDiamond);
-            if (ModItemsSE.bound_shield_tower != null) {
-                registry.register(new RecipeShieldBanners(ModItemsSE.bound_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_bound")));
-            }
-
-            registerSoulForgeToolRecipe(ModItemsSE.sentient_shield_basic, 160, 40, new ItemStack(ItemRegistrySS.shieldDiamond), new ItemStack(RegistrarBloodMagicItems.SOUL_GEM, 1, 1), "gemDiamond", "obsidian");
-            registerSoulForgeToolRecipe(ModItemsSE.sentient_shield_tower, 160, 40, new ItemStack(ItemRegistrySS.shieldTowerDiamond), new ItemStack(RegistrarBloodMagicItems.SOUL_GEM, 1, 1), "gemDiamond", "obsidian");
-            if(ModItemsSE.sentient_shield_tower != null) {
-                registry.register(new RecipeShieldBanners(ModItemsSE.sentient_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_sentient")));
-            }
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void initClient(FMLInitializationEvent event) {
-        if(ModIds.spartan_shields.isLoaded) {
-            ClientProxy.setShieldTEISR(ModItemsSE.bound_shield_tower, LibNames.bound_shield_tower, "S_BOUND", new ModelShieldTowerSE());
-            ClientProxy.setShieldTEISR(ModItemsSE.sentient_shield_tower, LibNames.sentient_shield_tower, "S_SENTIENT", new ModelShieldTowerSE());
-        }
     }
 
     @Override

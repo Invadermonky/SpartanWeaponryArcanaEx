@@ -1,21 +1,15 @@
 package com.invadermonky.spartanweaponryarcanaex.compat;
 
-import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
 import com.invadermonky.spartanweaponryarcanaex.api.IModCompat;
 import com.invadermonky.spartanweaponryarcanaex.api.ISharpenableCrystalWeapon;
-import com.invadermonky.spartanweaponryarcanaex.client.model.ModelShieldTowerSE;
 import com.invadermonky.spartanweaponryarcanaex.config.ConfigHandlerSE;
 import com.invadermonky.spartanweaponryarcanaex.items.crystal.*;
 import com.invadermonky.spartanweaponryarcanaex.materials.astralsorcery.WeaponPropertyCrystal;
 import com.invadermonky.spartanweaponryarcanaex.materials.astralsorcery.WeaponPropertyInfusedCrystal;
-import com.invadermonky.spartanweaponryarcanaex.proxy.ClientProxy;
 import com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE;
 import com.invadermonky.spartanweaponryarcanaex.util.PlayerHelper;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibNames;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibTags;
-import com.invadermonky.spartanweaponryarcanaex.util.libs.ModIds;
-import com.oblivioussp.spartanshields.init.ItemRegistrySS;
-import com.oblivioussp.spartanshields.item.crafting.RecipeShieldBanners;
 import com.oblivioussp.spartanweaponry.init.ItemRegistrySW;
 import hellfirepvp.astralsorcery.common.auxiliary.SwordSharpenHelper;
 import hellfirepvp.astralsorcery.common.crafting.ItemHandle;
@@ -26,7 +20,6 @@ import hellfirepvp.astralsorcery.common.crafting.grindstone.GrindstoneRecipeRegi
 import hellfirepvp.astralsorcery.common.crafting.helper.ShapedRecipe;
 import hellfirepvp.astralsorcery.common.crafting.infusion.InfusionRecipeRegistry;
 import hellfirepvp.astralsorcery.common.crafting.infusion.recipes.InfusionRecipeChargeTool;
-import hellfirepvp.astralsorcery.common.entities.EntityFlare;
 import hellfirepvp.astralsorcery.common.item.crystal.ToolCrystalProperties;
 import hellfirepvp.astralsorcery.common.item.tool.ChargedCrystalToolBase;
 import hellfirepvp.astralsorcery.common.item.tool.ItemCrystalSword;
@@ -45,18 +38,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.UUID;
 
 import static com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE.*;
@@ -283,45 +269,27 @@ public class AstralSorceryCompat implements IModCompat {
         AstralSorceryCompat.registerToolInfusionRecipe(ModItemsSE.infused_crystal_throwing_axe);
         AstralSorceryCompat.registerToolInfusionRecipe(ModItemsSE.infused_crystal_throwing_knife);
         AstralSorceryCompat.registerToolInfusionRecipe(ModItemsSE.infused_crystal_warhammer);
-
-        if(ModIds.spartan_shields.isLoaded) {
-            AstralSorceryCompat.registerToolAltarRecipe(ModItemsSE.crystal_shield_basic, new CrystalToolRecipe(ShapedRecipe.Builder.newShapedRecipe("internal/altar/" + LibNames.crystal_shield_basic, ModItemsSE.crystal_shield_basic)
-                    .addPart(new ItemStack(ItemRegistrySS.shieldWood), CENTER)
-                    .addPart(ItemHandle.getCrystalVariant(false, false), LOWER_CENTER, LEFT, RIGHT, UPPER_CENTER)
-                    .unregisteredAccessibleShapedRecipe(), LOWER_CENTER, LEFT, RIGHT, UPPER_CENTER));
-
-            AstralSorceryCompat.registerToolAltarRecipe(ModItemsSE.crystal_shield_tower, new CrystalToolRecipe(ShapedRecipe.Builder.newShapedRecipe("internal/altar/" + LibNames.crystal_shield_tower, ModItemsSE.crystal_shield_tower)
-                    .addPart(new ItemStack(ItemRegistrySS.shieldTowerWood), CENTER)
-                    .addPart(ItemHandle.getCrystalVariant(false, false), LOWER_CENTER, LEFT, RIGHT, UPPER_CENTER)
-                    .unregisteredAccessibleShapedRecipe(), LOWER_CENTER, LEFT, RIGHT, UPPER_CENTER));
-
-            if(ModItemsSE.crystal_shield_tower != null) {
-                registry.register(new RecipeShieldBanners(ModItemsSE.crystal_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_crystal")));
-            }
-
-            AstralSorceryCompat.registerToolInfusionRecipe(ModItemsSE.infused_crystal_shield_basic);
-            AstralSorceryCompat.registerToolInfusionRecipe(ModItemsSE.infused_crystal_shield_tower);
-            if(ModItemsSE.infused_crystal_shield_tower != null) {
-                registry.register(new RecipeShieldBanners(ModItemsSE.infused_crystal_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_infused_crystal")));
-            }
-        }
     }
 
     @Override
     public void onLivingHurt(LivingHurtEvent event) {
-        if(event.getEntityLiving() instanceof EntityPlayer && event.getSource().getTrueSource() instanceof EntityLivingBase) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if(!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() == ModItemsSE.infused_crystal_shield_basic || player.getHeldItemOffhand().getItem() == ModItemsSE.infused_crystal_shield_tower) {
-                BlockPos pos1 = new BlockPos(player.posX - 10, player.posY - 10, player.posZ - 10);
-                BlockPos pos2 = new BlockPos(player.posX + 10, player.posY + 10, player.posZ + 10);
-                List<EntityFlare> entityFlares = player.world.getEntitiesWithinAABB(EntityFlare.class, new AxisAlignedBB(pos1, pos2), entityFlare -> entityFlare.getEntityData().getBoolean(LibTags.crystal_shield_flare));
-                for(EntityFlare flare : entityFlares) {
-                    if(flare.getFollowingEntity() == player) {
-                        flare.setAttackTarget((EntityLivingBase) event.getSource().getTrueSource());
+        /*
+        if(ModIds.spartan_shields.isLoaded) {
+            if (event.getEntityLiving() instanceof EntityPlayer && event.getSource().getTrueSource() instanceof EntityLivingBase) {
+                EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+                if (!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() == ModItemsSE.infused_crystal_shield_basic || player.getHeldItemOffhand().getItem() == ModItemsSE.infused_crystal_shield_tower) {
+                    BlockPos pos1 = new BlockPos(player.posX - 10, player.posY - 10, player.posZ - 10);
+                    BlockPos pos2 = new BlockPos(player.posX + 10, player.posY + 10, player.posZ + 10);
+                    List<EntityFlare> entityFlares = player.world.getEntitiesWithinAABB(EntityFlare.class, new AxisAlignedBB(pos1, pos2), entityFlare -> entityFlare.getEntityData().getBoolean(LibTags.crystal_shield_flare));
+                    for (EntityFlare flare : entityFlares) {
+                        if (flare.getFollowingEntity() == player) {
+                            flare.setAttackTarget((EntityLivingBase) event.getSource().getTrueSource());
+                        }
                     }
                 }
             }
         }
+         */
     }
 
     @Override
@@ -350,15 +318,6 @@ public class AstralSorceryCompat implements IModCompat {
                     }
                 }
             }
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void initClient(FMLInitializationEvent event) {
-        if(ModIds.spartan_shields.isLoaded) {
-            ClientProxy.setShieldTEISR(ModItemsSE.crystal_shield_tower, LibNames.crystal_shield_tower, "S_CRYSTAL", new ModelShieldTowerSE());
-            ClientProxy.setShieldTEISR(ModItemsSE.infused_crystal_shield_tower, LibNames.infused_crystal_shield_tower, "S_INFUSED_CRYSTAL", new ModelShieldTowerSE());
         }
     }
 

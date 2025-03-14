@@ -32,9 +32,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemSentientShieldWrapper {
+public class ItemSentientShield {
+    protected final String unlocName;
 
-    public static ItemShield build(String unlocName) {
+    public ItemSentientShield(String unlocName) {
+        this.unlocName = unlocName;
+    }
+
+    public ItemShield createShield() {
         class ItemSentientShieldBasic extends ItemShieldBasic implements ISpartanWillShield {
             public ItemSentientShieldBasic() {
                 super(unlocName, 600, RegistrarBloodMagicItems.SOUL_TOOL_MATERIAL);

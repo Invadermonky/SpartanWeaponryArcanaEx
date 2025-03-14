@@ -3,28 +3,19 @@ package com.invadermonky.spartanweaponryarcanaex.compat;
 import com.bewitchment.api.registry.FrostfireRecipe;
 import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
 import com.invadermonky.spartanweaponryarcanaex.api.IModCompat;
-import com.invadermonky.spartanweaponryarcanaex.client.model.ModelShieldTowerSE;
 import com.invadermonky.spartanweaponryarcanaex.config.ConfigHandlerSE;
 import com.invadermonky.spartanweaponryarcanaex.items.base.*;
 import com.invadermonky.spartanweaponryarcanaex.materials.bewitchment.WeaponPropertyColdIron;
-import com.invadermonky.spartanweaponryarcanaex.proxy.ClientProxy;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibNames;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.ModIds;
-import com.oblivioussp.spartanshields.init.ItemRegistrySS;
-import com.oblivioussp.spartanshields.item.crafting.RecipeShieldBanners;
 import com.oblivioussp.spartanweaponry.init.ItemRegistrySW;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import static com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE.*;
@@ -94,28 +85,8 @@ public class BewitchmentCompat implements IModCompat {
         registerFrostfireRecipe(registry, cold_iron_throwing_axe, ItemRegistrySW.throwingAxeIron);
         registerFrostfireRecipe(registry, cold_iron_throwing_knife, ItemRegistrySW.throwingKnifeIron);
         registerFrostfireRecipe(registry, cold_iron_warhammer, ItemRegistrySW.warhammerIron);
-
-        if(ModIds.spartan_shields.isLoaded) {
-            registerFrostfireRecipe(registry, cold_iron_shield_basic, ItemRegistrySS.shieldIron);
-            registerFrostfireRecipe(registry, cold_iron_shield_tower, ItemRegistrySS.shieldTowerIron);
-        }
     }
 
-    @Override
-    public void initializeRecipes(IForgeRegistry<IRecipe> registry) {
-        if(cold_iron_shield_tower != null) {
-            registry.register(new RecipeShieldBanners(cold_iron_shield_tower).setRegistryName(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "shield_banner_cold_iron")));
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void initClient(FMLInitializationEvent event) {
-        if(ModIds.spartan_shields.isLoaded) {
-            ClientProxy.setShieldTEISR(cold_iron_shield_tower, LibNames.cold_iron_shield_tower, "S_COLD_IRON", new ModelShieldTowerSE());
-        }
-    }
-    
     private static void registerFrostfireRecipe(IForgeRegistry<FrostfireRecipe> registry, Item outputItem, Item inputItem) {
         if(inputItem != null && outputItem != null) {
             registry.register(new FrostfireRecipe(outputItem.getRegistryName(), Ingredient.fromItem(inputItem), new ItemStack(outputItem)));

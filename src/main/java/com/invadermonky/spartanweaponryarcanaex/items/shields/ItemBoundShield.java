@@ -30,8 +30,14 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemBoundShieldWrapper {
-    public static ItemShield build(String unlocName) {
+public class ItemBoundShield {
+    protected final String unlocName;
+
+    public ItemBoundShield(String unlocName) {
+        this.unlocName = unlocName;
+    }
+
+    public ItemShield createShield() {
         class ItemBoundShieldBasic extends ItemShieldBasic implements IBindable, IActivatable {
             public ItemBoundShieldBasic() {
                 super(unlocName, 3000, RegistrarBloodMagicItems.BOUND_TOOL_MATERIAL);
