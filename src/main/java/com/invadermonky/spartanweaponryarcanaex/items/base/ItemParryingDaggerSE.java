@@ -6,6 +6,8 @@ import com.oblivioussp.spartanweaponry.item.ItemParryingDagger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class ItemParryingDaggerSE extends ItemParryingDagger {
     protected boolean doReequip = true;
 
@@ -19,7 +21,7 @@ public class ItemParryingDaggerSE extends ItemParryingDagger {
     }
 
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    public boolean shouldCauseReequipAnimation(@Nonnull ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
         return this.doReequip ? super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) : oldStack.getItem() != newStack.getItem() || slotChanged;
     }
 }

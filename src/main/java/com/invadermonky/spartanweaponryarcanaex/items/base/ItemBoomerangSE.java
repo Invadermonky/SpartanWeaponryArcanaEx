@@ -10,7 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemBoomerangSE extends ItemBoomerang {
     protected boolean doReequip = true;
@@ -21,27 +23,28 @@ public class ItemBoomerangSE extends ItemBoomerang {
 
     public Item setNoReequipAnimation() {
         this.doReequip = false;
-		return this;
+        return this;
     }
 
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    public boolean shouldCauseReequipAnimation(@Nonnull ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
         return this.doReequip ? super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) : oldStack.getItem() != newStack.getItem() || slotChanged || this.getCurrentAmmo(oldStack) != this.getCurrentAmmo(newStack);
     }
 
-    public int getCurrentAmmo(ItemStack stack) {
+    public int getCurrentAmmo(@Nonnull ItemStack stack) {
         return stack.hasTagCompound() ? this.getMaxAmmo(stack) - stack.getTagCompound().getInteger(NBT_AMMO_USED) : 0;
     }
 
     @Nullable
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        if(this.properties != null) {
-            for (WeaponProperty property : this.properties) {
+    public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, @Nullable NBTTagCompound nbt) {
+        final List<WeaponProperty> prs = getAllWeaponProperties();
+        if (prs != null) {
+            for (int i = 0, size = prs.size(); i < size; i++) {
+                WeaponProperty property = prs.get(i);
                 if (property instanceof WeaponPropertyWithCallbackSE) {
                     ICapabilityProvider capability = ((WeaponPropertyWithCallbackSE) property).initCapabilities(stack, nbt);
-                    if(capability != null)
-                        return capability;
+                    if (capability != null) return capability;
                 }
             }
         }

@@ -8,6 +8,8 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IRarity;
 
+import javax.annotation.Nonnull;
+
 public class ItemWildwoodLongbow extends ItemLongbowSE {
 
     public ItemWildwoodLongbow() {
@@ -19,6 +21,7 @@ public class ItemWildwoodLongbow extends ItemLongbowSE {
         this.setNoReequipAnimation();
     }
 
+    @Nonnull
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         return super.getItemStackDisplayName(stack);

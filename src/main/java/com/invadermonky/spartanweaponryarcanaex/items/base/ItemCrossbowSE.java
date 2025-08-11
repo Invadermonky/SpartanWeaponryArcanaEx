@@ -22,6 +22,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ItemCrossbowSE extends ItemCrossbow {
@@ -46,6 +47,7 @@ public class ItemCrossbowSE extends ItemCrossbow {
         return this;
     }
 
+    @Nonnull
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         return this.hasCustomDisplayName ? I18n.translateToLocalFormatted(StringHelper.getTranslationKey(this.getRegistryName().getPath(), "item", "name")) : super.getItemStackDisplayName(stack);
@@ -71,7 +73,7 @@ public class ItemCrossbowSE extends ItemCrossbow {
         bolt.shoot(vector.x, vector.y, vector.z, this.getBoltSpeed() * 3.0F, inaccuracyModifier);
         int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, crossbow);
         if (j > 0) {
-            bolt.setDamage(bolt.getDamage() + (double)j * 0.5 + 0.5);
+            bolt.setDamage(bolt.getDamage() + (double) j * 0.5 + 0.5);
         }
 
         int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, crossbow);
@@ -87,9 +89,9 @@ public class ItemCrossbowSE extends ItemCrossbow {
             bolt.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
         }
 
-        if(this.material != null) {
-            for(WeaponProperty property : this.material.getAllWeaponProperties()) {
-                if(property instanceof WeaponPropertyWithCallbackSE) {
+        if (this.material != null) {
+            for (WeaponProperty property : this.material.getAllWeaponProperties()) {
+                if (property instanceof WeaponPropertyWithCallbackSE) {
                     ((WeaponPropertyWithCallbackSE) property).applyAttributeToArrow(world, bolt, player, crossbow);
                 }
             }
@@ -108,13 +110,12 @@ public class ItemCrossbowSE extends ItemCrossbow {
 
     @Nullable
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        if(this.material != null) {
+    public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, @Nullable NBTTagCompound nbt) {
+        if (this.material != null) {
             for (WeaponProperty property : this.material.getAllWeaponProperties()) {
                 if (property instanceof WeaponPropertyWithCallbackSE) {
                     ICapabilityProvider capability = ((WeaponPropertyWithCallbackSE) property).initCapabilities(stack, nbt);
-                    if(capability != null)
-                        return capability;
+                    if (capability != null) return capability;
                 }
             }
         }

@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ItemDaggerSE extends ItemDagger {
@@ -21,23 +22,22 @@ public class ItemDaggerSE extends ItemDagger {
 
     public Item setNoReequipAnimation() {
         this.doReequip = false;
-		return this;
+        return this;
     }
 
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    public boolean shouldCauseReequipAnimation(@Nonnull ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
         return this.doReequip ? super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) : oldStack.getItem() != newStack.getItem() || slotChanged;
     }
 
     @Nullable
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        if(this.materialEx != null) {
+    public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, @Nullable NBTTagCompound nbt) {
+        if (this.materialEx != null) {
             for (WeaponProperty property : this.materialEx.getAllWeaponProperties()) {
                 if (property instanceof WeaponPropertyWithCallbackSE) {
                     ICapabilityProvider capability = ((WeaponPropertyWithCallbackSE) property).initCapabilities(stack, nbt);
-                    if(capability != null)
-                        return capability;
+                    if (capability != null) return capability;
                 }
             }
         }
