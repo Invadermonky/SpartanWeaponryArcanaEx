@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemBattleaxeSE extends ItemBattleaxe {
     protected boolean doReequip = true;
@@ -32,8 +33,8 @@ public class ItemBattleaxeSE extends ItemBattleaxe {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        if(this.properties != null) {
-            for (WeaponProperty property : this.properties) {
+        if(this.materialEx != null) {
+            for (WeaponProperty property : this.materialEx.getAllWeaponProperties()) {
                 if (property instanceof WeaponPropertyWithCallbackSE) {
                     ICapabilityProvider capability = ((WeaponPropertyWithCallbackSE) property).initCapabilities(stack, nbt);
                     if(capability != null)

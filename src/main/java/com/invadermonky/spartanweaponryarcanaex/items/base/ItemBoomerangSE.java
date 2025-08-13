@@ -36,8 +36,8 @@ public class ItemBoomerangSE extends ItemBoomerang {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        if(this.properties != null) {
-            for (WeaponProperty property : this.properties) {
+        if(this.materialEx != null) {
+            for (WeaponProperty property : this.materialEx.getAllWeaponProperties()) {
                 if (property instanceof WeaponPropertyWithCallbackSE) {
                     ICapabilityProvider capability = ((WeaponPropertyWithCallbackSE) property).initCapabilities(stack, nbt);
                     if(capability != null)
