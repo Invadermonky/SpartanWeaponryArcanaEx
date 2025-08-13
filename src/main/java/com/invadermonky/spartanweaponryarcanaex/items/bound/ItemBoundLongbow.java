@@ -5,7 +5,6 @@ import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.iface.IBindable;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
-import com.invadermonky.spartanweaponryarcanaex.client.CreativeTabSE;
 import com.invadermonky.spartanweaponryarcanaex.items.base.ItemLongbowSE;
 import com.invadermonky.spartanweaponryarcanaex.materials.bloodmagic.WeaponPropertyBound;
 import com.invadermonky.spartanweaponryarcanaex.util.StringHelper;
@@ -32,7 +31,6 @@ public class ItemBoundLongbow extends ItemLongbowSE implements IBindable {
 
     public ItemBoundLongbow() {
         super(LibNames.bound, WeaponPropertyBound.BOUND_MATERIAL_EX, WeaponPropertyBound.BOUND_PROPERTY);
-        this.setCreativeTab(CreativeTabSE.TAB_BLOOD_WEAPONRY);
         this.setNoReequipAnimation();
         this.setHasCustomDisplayName();
     }

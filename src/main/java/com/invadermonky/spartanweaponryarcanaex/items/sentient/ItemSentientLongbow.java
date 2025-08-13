@@ -22,7 +22,7 @@ import java.util.List;
 public class ItemSentientLongbow extends ItemLongbowSE implements ISpartanWillBow {
     public ItemSentientLongbow() {
         super(LibNames.sentient, WeaponPropertySentient.SENTIENT_MATERIAL_EX, WeaponPropertySentient.SENTIENT_PROPERTY);
-        this.setCreativeTab(CreativeTabSE.TAB_BLOOD_WEAPONRY);
+        this.setCreativeTab(CreativeTabSE.TAB_SE);
         this.addPropertyOverride(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "sentient"), (stack, worldIn, entityIn) -> this.getCurrentType(stack).ordinal());
         this.setNoReequipAnimation();
         this.setHasCustomDisplayName();

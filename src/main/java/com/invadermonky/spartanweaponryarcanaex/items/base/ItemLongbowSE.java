@@ -1,6 +1,7 @@
 package com.invadermonky.spartanweaponryarcanaex.items.base;
 
 import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
+import com.invadermonky.spartanweaponryarcanaex.client.CreativeTabSE;
 import com.invadermonky.spartanweaponryarcanaex.materials.util.WeaponPropertyWithCallbackSE;
 import com.invadermonky.spartanweaponryarcanaex.util.StringHelper;
 import com.oblivioussp.spartanweaponry.api.IWeaponCallback;
@@ -32,6 +33,7 @@ public class ItemLongbowSE extends ItemLongbow {
 
     public ItemLongbowSE(String materialName, ToolMaterialEx material) {
         super("longbow_" + materialName, SpartanWeaponryArcanaEx.MOD_ID, material);
+        this.setCreativeTab(CreativeTabSE.TAB_SE);
     }
 
     public ItemLongbowSE(String materialName, ToolMaterialEx material, IWeaponCallback weaponCallback) {

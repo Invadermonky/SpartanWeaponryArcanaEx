@@ -1,6 +1,7 @@
 package com.invadermonky.spartanweaponryarcanaex.items.base;
 
 import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
+import com.invadermonky.spartanweaponryarcanaex.client.CreativeTabSE;
 import com.invadermonky.spartanweaponryarcanaex.materials.util.WeaponPropertyWithCallbackSE;
 import com.oblivioussp.spartanweaponry.api.ToolMaterialEx;
 import com.oblivioussp.spartanweaponry.api.weaponproperty.WeaponProperty;
@@ -17,6 +18,7 @@ public class ItemGlaiveSE extends ItemGlaive {
 
     public ItemGlaiveSE(String materialName, ToolMaterialEx material) {
         super("glaive_" + materialName, SpartanWeaponryArcanaEx.MOD_ID, material);
+        this.setCreativeTab(CreativeTabSE.TAB_SE);
     }
 
     public Item setNoReequipAnimation() {

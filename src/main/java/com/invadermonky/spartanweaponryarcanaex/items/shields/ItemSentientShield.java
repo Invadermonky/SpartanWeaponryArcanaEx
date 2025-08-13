@@ -43,7 +43,7 @@ public class ItemSentientShield {
         class ItemSentientShieldBasic extends ItemShieldBasic implements ISpartanWillShield {
             public ItemSentientShieldBasic() {
                 super(unlocName, 600, RegistrarBloodMagicItems.SOUL_TOOL_MATERIAL);
-                this.setCreativeTab(CreativeTabSE.TAB_BLOOD_WEAPONRY);
+                this.setCreativeTab(CreativeTabSE.TAB_SE);
                 this.addPropertyOverride(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "sentient"), (stack, worldIn, entityIn) -> this.getCurrentType(stack).ordinal());
             }
 

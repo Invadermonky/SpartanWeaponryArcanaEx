@@ -37,7 +37,7 @@ public class ItemSentientQuarterstaff extends ItemQuarterstaffSE implements ISpa
 
     public ItemSentientQuarterstaff() {
         super(LibNames.sentient, WeaponPropertySentient.SENTIENT_MATERIAL_EX);
-        this.setCreativeTab(CreativeTabSE.TAB_BLOOD_WEAPONRY);
+        this.setCreativeTab(CreativeTabSE.TAB_SE);
         this.addPropertyOverride(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "sentient"), (stack, worldIn, entityIn) -> this.getCurrentType(stack).ordinal());
         this.setNoReequipAnimation();
         this.damageMultiplier = ConfigHandler.damageMultiplierQuarterstaff;

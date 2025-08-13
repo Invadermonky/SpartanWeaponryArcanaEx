@@ -5,7 +5,6 @@ import WayofTime.bloodmagic.util.helper.TextHelper;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
-import com.invadermonky.spartanweaponryarcanaex.client.CreativeTabSE;
 import com.invadermonky.spartanweaponryarcanaex.items.base.ItemParryingDaggerSE;
 import com.invadermonky.spartanweaponryarcanaex.materials.bloodmagic.ISpartanBoundWeapon;
 import com.invadermonky.spartanweaponryarcanaex.materials.bloodmagic.WeaponPropertyBound;
@@ -35,7 +34,6 @@ public class ItemBoundParryingDagger extends ItemParryingDaggerSE implements ISp
 
     public ItemBoundParryingDagger() {
         super(LibNames.bound, WeaponPropertyBound.BOUND_MATERIAL_EX);
-        this.setCreativeTab(CreativeTabSE.TAB_BLOOD_WEAPONRY);
         this.addPropertyOverride(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "enabled"), (stack, worldIn, entityIn) -> this.getActivated(stack) ? 1 : 0);
         this.setNoReequipAnimation();
         this.baseAttackDamage = Math.max(0.5F, this.materialEx.getAttackDamage() * ConfigHandler.damageMultiplierParryingDagger + ConfigHandler.damageBaseParryingDagger - 1.0F);

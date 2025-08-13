@@ -41,7 +41,7 @@ public class ItemBoundShield {
         class ItemBoundShieldBasic extends ItemShieldBasic implements IBindable, IActivatable {
             public ItemBoundShieldBasic() {
                 super(unlocName, 3000, RegistrarBloodMagicItems.BOUND_TOOL_MATERIAL);
-                this.setCreativeTab(CreativeTabSE.TAB_BLOOD_WEAPONRY);
+                this.setCreativeTab(CreativeTabSE.TAB_SE);
                 this.addPropertyOverride(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "enabled"), (stack, worldIn, entityIn) -> this.getActivated(stack) ? 1 : 0);
             }
 

@@ -1,6 +1,7 @@
 package com.invadermonky.spartanweaponryarcanaex.items.base;
 
 import com.invadermonky.spartanweaponryarcanaex.SpartanWeaponryArcanaEx;
+import com.invadermonky.spartanweaponryarcanaex.client.CreativeTabSE;
 import com.oblivioussp.spartanweaponry.api.ToolMaterialEx;
 import com.oblivioussp.spartanweaponry.item.ItemParryingDagger;
 import net.minecraft.item.Item;
@@ -11,6 +12,7 @@ public class ItemParryingDaggerSE extends ItemParryingDagger {
 
     public ItemParryingDaggerSE(String materialName, ToolMaterialEx material) {
         super("parrying_dagger_" + materialName, SpartanWeaponryArcanaEx.MOD_ID, material);
+        this.setCreativeTab(CreativeTabSE.TAB_SE);
     }
 
     public Item setNoReequipAnimation() {
