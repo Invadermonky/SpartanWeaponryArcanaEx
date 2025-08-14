@@ -2,35 +2,36 @@
 Spartan Weaponry Arcana Expanded is an addon for Spartan Weaponry that adds a number magic-themed weapon variants.
 
 ## Astral Sorcery
-### Crystal Weapons
-- Weapons inherit the properties of the crystals used in their creation, increasing size and damage based on crystal stats.
-### Infused Crystal Weapons
-- Weapons inherit the properties of the crystals used in their creation, increasing size and damage based on crystal stats. Infused weapons also inflict stellar damage on strike. Thrown weapons and projectiles fired from infused crystal ranged weapons inherit the stellar strike ability.
+- **Crystal Weapons**
+  - **Crystal:** Inherit the properties of the crystals used in their creation, increasing size and damage based on crystal stats.
+- **Infused Crystal Weapons**
+  - **Crystal:** Inherits the properties of the crystals used in their creation, increasing size and damage based on crystal stats. 
+  - **Infused Cyrstal:** Inflicts stellar damage on strike. Thrown weapons and projectiles fired from infused crystal ranged weapons include this ability.
 
 ## Bewitchment
-### Cold Iron Weapons
-- Weapons deal additional damage to demons, ghosts and spirits.
+- **Cold Iron Weapons**
+  - **Cold Iron:** Deals additional damage to demons, ghosts and spirits.
 
 ## Blood Magic
-### Sentient Weapons
-- Weapons are granted bonuses based on the amount of Demon Will in a player's inventory
-- Will Bonuses:
-  - Raw Will - Increases weapon damage
-  - Corrosive Will - Poisons enemy on hit
-  - Destructive Will - Greatly increased damage with slower attack speed
-  - Steadfast Will - Grants Absorption on killing an enemy
-  - Vengeful Will - Deals less damage but grants increased movement speed when weapon is held 
-### Bound Weapons
-- Weapons can be activated to increase their damage. Activated weapons will drain LP from the player's Soul Network.
-  
+- **Sentient Weapons**
+  - **Sentient:** Gains bonuses based on the amount of Demon Will in a player's inventory
+    - Raw Will - Increases weapon damage
+    - Corrosive Will - Poisons enemy on hit
+    - Destructive Will - Greatly increased damage with slower attack speed
+    - Steadfast Will - Grants Absorption on killing an enemy
+    - Vengeful Will - Reduces weapon damage, increases movement speed
+- **Bound Weapons**
+  - **Bound:** Can be activated to increase their damage. Activated weapons will drain LP from the player's Soul Network.
+
 ## Nature's Aura
-### Botanist's Weapons (Infused Iron)
-  - Botanist's Weapons inflict enemies with slowness and can be repaired using aura stored in Aura Troves.
+- **Botanist's Weapons (Infused Iron)**
+  - **Aura Repair:** Can be repaired using aura from an aura trove
+  - **Natural:** Inflicts enemies with slowness
 
 ## Roots
-### Living Weapons
-- Weapons repair durability damage over time.
-### Terrastone Weapons
-- Weapons rapidly repair durability damage over time.
-### Wildwood Bow/Crossbow
-- Bows repair durability damage over time.
+- **Living Weapons**
+  - **Living:** Repairs durability damage over time
+- **Terrastone Weapons**
+  - **Terrastone:** Rapidly repairs durability damage over time
+- **Wildwood Bow/Crossbow**
+  - **Wildwood:** Repairs durability damage over time
