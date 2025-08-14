@@ -34,6 +34,7 @@ public class ItemSentientQuarterstaff extends ItemQuarterstaffSE implements ISpa
     protected final double baseAttackDamage;
     protected final double damageMultiplier;
     protected final double baseAttackSpeed;
+    protected float directAttackDamage;
 
     public ItemSentientQuarterstaff() {
         super(LibNames.sentient, WeaponPropertySentient.SENTIENT_MATERIAL_EX);
@@ -104,8 +105,13 @@ public class ItemSentientQuarterstaff extends ItemQuarterstaffSE implements ISpa
     }
 
     @Override
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
+    }
+
+    @Override
     public void syncWeaponValues(ItemStack stack) {
-        this.attackDamage = (float) this.getDamageOfActivatedWeapon(stack);
+        this.directAttackDamage = (float) this.getDamageOfActivatedWeapon(stack);
         this.attackSpeed = this.getAttackSpeedOfWeapon(stack);
     }
 

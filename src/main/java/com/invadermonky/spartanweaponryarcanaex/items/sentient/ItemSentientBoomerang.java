@@ -36,6 +36,7 @@ public class ItemSentientBoomerang extends ItemBoomerangSE implements ISpartanWi
     protected final double baseAttackDamage;
     protected final double damageMultiplier;
     protected final double baseAttackSpeed;
+    protected float directAttackDamage;
 
     public ItemSentientBoomerang() {
         super(LibNames.sentient, WeaponPropertySentient.SENTIENT_MATERIAL_EX);
@@ -131,8 +132,13 @@ public class ItemSentientBoomerang extends ItemBoomerangSE implements ISpartanWi
     }
 
     @Override
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
+    }
+
+    @Override
     public void syncWeaponValues(ItemStack stack) {
-        this.attackDamage = (float) this.getDamageOfActivatedWeapon(stack);
+        this.directAttackDamage = (float) this.getDamageOfActivatedWeapon(stack);
         this.attackSpeed = this.getAttackSpeedOfWeapon(stack);
     }
 

@@ -39,6 +39,7 @@ public class ItemSentientBattleaxe extends ItemBattleaxeSE implements ISpartanWi
     protected final double baseAttackDamage;
     protected final double damageMultiplier;
     protected final double baseAttackSpeed;
+    protected float directAttackDamage;
 
     public ItemSentientBattleaxe() {
         super(LibNames.sentient, WeaponPropertySentient.SENTIENT_MATERIAL_EX);
@@ -118,8 +119,13 @@ public class ItemSentientBattleaxe extends ItemBattleaxeSE implements ISpartanWi
     }
 
     @Override
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
+    }
+
+    @Override
     public void syncWeaponValues(ItemStack stack) {
-        this.attackDamage = (float) this.getDamageOfActivatedWeapon(stack);
+        this.directAttackDamage = (float) this.getDamageOfActivatedWeapon(stack);
         this.attackSpeed = this.getAttackSpeedOfWeapon(stack);
     }
 

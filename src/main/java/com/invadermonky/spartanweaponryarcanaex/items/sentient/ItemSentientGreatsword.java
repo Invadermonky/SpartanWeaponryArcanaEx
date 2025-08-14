@@ -12,6 +12,7 @@ import com.invadermonky.spartanweaponryarcanaex.items.base.ItemGreatswordSE;
 import com.invadermonky.spartanweaponryarcanaex.materials.bloodmagic.ISpartanWillWeapon;
 import com.invadermonky.spartanweaponryarcanaex.materials.bloodmagic.WeaponPropertySentient;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibNames;
+import com.oblivioussp.spartanweaponry.item.ItemSwordBase;
 import com.oblivioussp.spartanweaponry.util.ConfigHandler;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -34,6 +35,7 @@ public class ItemSentientGreatsword extends ItemGreatswordSE implements ISpartan
     protected final double baseAttackDamage;
     protected final double damageMultiplier;
     protected final double baseAttackSpeed;
+    protected float directAttackDamage;
 
     public ItemSentientGreatsword() {
         super(LibNames.sentient, WeaponPropertySentient.SENTIENT_MATERIAL_EX);
@@ -104,8 +106,13 @@ public class ItemSentientGreatsword extends ItemGreatswordSE implements ISpartan
     }
 
     @Override
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
+    }
+
+    @Override
     public void syncWeaponValues(ItemStack stack) {
-        this.attackDamage = (float) this.getDamageOfActivatedWeapon(stack);
+        this.directAttackDamage = (float) this.getDamageOfActivatedWeapon(stack);
         this.attackSpeed = this.getAttackSpeedOfWeapon(stack);
     }
 
