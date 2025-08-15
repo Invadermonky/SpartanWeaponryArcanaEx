@@ -31,6 +31,7 @@ import java.util.List;
 public class ItemBoundRapier extends ItemRapierSE implements ISpartanBoundWeapon {
     protected final double baseAttackDamage;
     protected final double baseAttackSpeed;
+    protected float directAttackDamage;
 
     public ItemBoundRapier() {
         super(LibNames.bound, WeaponPropertyBound.BOUND_MATERIAL_EX);
@@ -86,8 +87,13 @@ public class ItemBoundRapier extends ItemRapierSE implements ISpartanBoundWeapon
     }
 
     @Override
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
+    }
+
+    @Override
     public void syncWeaponValues(ItemStack stack) {
-        this.attackDamage = (float) this.getBaseAttackDamage();
+        this.directAttackDamage = (float) this.getBaseAttackDamage();
         this.attackSpeed = this.getBaseAttackSpeed();
     }
 

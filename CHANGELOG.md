@@ -1,4 +1,10 @@
 # Changelog
+## 1.12.2-1.0.3
+### Fixed
+- Fixed crash when activating Bound weapons (blame Spartan Weaponry for doing something dumb...)
+
+---
+
 ## 1.12.2-1.0.2
 ### Fixed
 - Fixed crash when syncing Sentient Weapon attack damage values

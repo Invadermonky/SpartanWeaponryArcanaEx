@@ -34,6 +34,7 @@ import java.util.List;
 public class ItemBoundThrowingAxe extends ItemThrowingAxeSE implements ISpartanBoundWeapon {
     protected final double baseAttackDamage;
     protected final double baseAttackSpeed;
+    protected float directAttackDamage;
 
     public ItemBoundThrowingAxe() {
         super(LibNames.bound, WeaponPropertyBound.BOUND_MATERIAL_EX);
@@ -102,8 +103,13 @@ public class ItemBoundThrowingAxe extends ItemThrowingAxeSE implements ISpartanB
     }
 
     @Override
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
+    }
+
+    @Override
     public void syncWeaponValues(ItemStack stack) {
-        this.attackDamage = (float) this.getBaseAttackDamage();
+        this.directAttackDamage = (float) this.getBaseAttackDamage();
         this.attackSpeed = this.getBaseAttackSpeed();
     }
 
