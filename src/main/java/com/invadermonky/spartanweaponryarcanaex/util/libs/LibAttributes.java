@@ -4,25 +4,25 @@ public class LibAttributes {
     public static class Ranged {
         public static int[] soulBracket = new int[]{16, 60, 200, 400, 1000, 2000, 4000};
         public static float[] velocityAdded = new float[]{0.25F, 0.5F, 0.75F, 1.0F, 1.25F, 1.5F, 1.75F};
-        public static double[] destructiveChargeTicksModifier = new double[] {0.10, 0.2, 0.30, 0.40, 0.6, 0.8, 1.0};
-        public static double[] vengefulChargeTicksModifier = new double[] {-0.15, -0.20, -0.25, -0.3, -0.4, -0.4, -0.5};
+        public static double[] destructiveChargeTicksModifier = new double[]{0.10, 0.2, 0.30, 0.40, 0.6, 0.8, 1.0};
+        public static double[] vengefulChargeTicksModifier = new double[]{-0.15, -0.20, -0.25, -0.3, -0.4, -0.4, -0.5};
 
         //Effect Values
-        public static float[] destructiveExplosionRadius = new float[] {0.5F, 1.0F, 1.5F, 2.0F, 2.5F, 3.0F, 3.5F};
-        public static int[] poisonDuration = new int[] {50, 100, 150, 80, 120, 160, 200};
-        public static int[] poisonLevel = new int[] {0, 0, 0, 1, 1, 1, 1};
-        public static int[] levitationDuration = new int[] {20, 40, 60, 80, 100, 120, 160};
-        public static int[] levitationLevel = new int[] {0, 0, 0, 1, 1, 1, 2};
-        public static int[] slownessDuration = new int[] {40, 60, 100, 150, 200, 250, 300};
-        public static int[] slownessLevel = new int[] {0, 0, 0, 1, 1, 1, 2};
+        public static float[] destructiveExplosionRadius = new float[]{0.5F, 1.0F, 1.5F, 2.0F, 2.5F, 3.0F, 3.5F};
+        public static int[] poisonDuration = new int[]{50, 100, 150, 80, 120, 160, 200};
+        public static int[] poisonLevel = new int[]{0, 0, 0, 1, 1, 1, 1};
+        public static int[] levitationDuration = new int[]{20, 40, 60, 80, 100, 120, 160};
+        public static int[] levitationLevel = new int[]{0, 0, 0, 1, 1, 1, 2};
+        public static int[] slownessDuration = new int[]{40, 60, 100, 150, 200, 250, 300};
+        public static int[] slownessLevel = new int[]{0, 0, 0, 1, 1, 1, 2};
     }
 
     public static class Shields {
         public static int[] soulBracket = new int[]{16, 60, 200, 400, 1000, 2000, 4000};
-        public static double[] defaultArmorAdded = new double[] {1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0};
+        public static double[] defaultArmorAdded = new double[]{1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0};
         public static double[] destructiveDamageAdded = new double[]{-0.5, 0, 0.5, 1.0, 1.5, 2.0, 2.0};
-        public static double[] steadfastToughnessAdded = new double[] {0.0, 0.5, 1.0, 1.0, 1.5, 2.0, 2.5};
-        public static double[] vengefulSpeedAdded = new double[] {0.05, 0.75, 0.10, 0.125, 0.15, 0.175, 0.20};
+        public static double[] steadfastToughnessAdded = new double[]{0.0, 0.5, 1.0, 1.0, 1.5, 2.0, 2.5};
+        public static double[] vengefulSpeedAdded = new double[]{0.05, 0.75, 0.10, 0.125, 0.15, 0.175, 0.20};
     }
 
     public static class Swords {

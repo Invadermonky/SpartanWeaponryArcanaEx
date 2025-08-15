@@ -29,8 +29,7 @@ public class SpartanWeaponryArcanaEx {
             ";after:" + ConstIds.bewitchment +
             ";after:" + ConstIds.blood_magic +
             ";after:" + ConstIds.natures_aura +
-            ";after:" + ConstIds.roots
-            ;
+            ";after:" + ConstIds.roots;
 
     public static final String ProxyClientClass = "com.invadermonky." + MOD_ID + ".proxy.ClientProxy";
     public static final String ProxyServerClass = "com.invadermonky." + MOD_ID + ".proxy.CommonProxy";

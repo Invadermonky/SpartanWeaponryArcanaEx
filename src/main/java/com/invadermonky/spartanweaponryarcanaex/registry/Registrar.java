@@ -25,15 +25,20 @@ public class Registrar {
     private static List<IModCompat> loadedCompat;
 
     public static void initializeModCompat() {
-        if(ModIds.astral_sorcery.isLoaded) loadedCompat.add(new AstralSorceryCompat());
-        if(ModIds.bewitchment.isLoaded) loadedCompat.add(new BewitchmentCompat());
-        if(ModIds.blood_magic.isLoaded) loadedCompat.add(new BloodMagicCompat());
-        if(ModIds.natures_aura.isLoaded) loadedCompat.add(new NaturesAuraCompat());
-        if(ModIds.roots.isLoaded) loadedCompat.add(new RootsCompat());
+        if (ModIds.astral_sorcery.isLoaded)
+            loadedCompat.add(new AstralSorceryCompat());
+        if (ModIds.bewitchment.isLoaded)
+            loadedCompat.add(new BewitchmentCompat());
+        if (ModIds.blood_magic.isLoaded)
+            loadedCompat.add(new BloodMagicCompat());
+        if (ModIds.natures_aura.isLoaded)
+            loadedCompat.add(new NaturesAuraCompat());
+        if (ModIds.roots.isLoaded)
+            loadedCompat.add(new RootsCompat());
     }
 
     public static List<IModCompat> getLoadedCompat() {
-        if(loadedCompat == null) {
+        if (loadedCompat == null) {
             loadedCompat = new ArrayList<>();
             initializeModCompat();
         }

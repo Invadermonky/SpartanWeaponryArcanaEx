@@ -15,6 +15,14 @@ public class WeaponPropertyInfusedIron extends WeaponPropertyWithCallbackSE {
     public static final WeaponPropertyInfusedIron INFUSED_IRON_PROPERTY;
     public static final ToolMaterialEx INFUSED_IRON_MATERIAL_EX;
 
+    public WeaponPropertyInfusedIron() {
+        super(LibNames.material_infused_iron);
+    }
+
+    @Override
+    public void onHitEntity(ToolMaterialEx material, ItemStack stack, EntityLivingBase target, EntityLivingBase attacker, Entity projectile) {
+        target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 60, 2));
+    }
     static {
         INFUSED_IRON_PROPERTY = new WeaponPropertyInfusedIron();
         INFUSED_IRON_MATERIAL_EX = new ToolMaterialEx(
@@ -26,14 +34,5 @@ public class WeaponPropertyInfusedIron extends WeaponPropertyWithCallbackSE {
                 WeaponPropertyAuraRepair.AURA_REPAIR_PROPERTY,
                 INFUSED_IRON_PROPERTY
         );
-    }
-
-    public WeaponPropertyInfusedIron() {
-        super(LibNames.material_infused_iron);
-    }
-
-    @Override
-    public void onHitEntity(ToolMaterialEx material, ItemStack stack, EntityLivingBase target, EntityLivingBase attacker, Entity projectile) {
-        target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 60, 2));
     }
 }

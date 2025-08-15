@@ -24,7 +24,7 @@ import static com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE.*;
 public class RootsCompat implements IModCompat {
     @Override
     public void initializeWeapons() {
-        if(ConfigHandlerSE.roots.enableLivingWeapons) {
+        if (ConfigHandlerSE.roots.enableLivingWeapons) {
             living_battleaxe = new ItemBattleaxeSE(LibNames.living, WeaponPropertyLiving.LIVING_MATERIAL_EX).setNoReequipAnimation();
             living_boomerang = new ItemBoomerangSE(LibNames.living, WeaponPropertyLiving.LIVING_MATERIAL_EX).setNoReequipAnimation();
             living_dagger = new ItemDaggerSE(LibNames.living, WeaponPropertyLiving.LIVING_MATERIAL_EX).setNoReequipAnimation();
@@ -89,7 +89,7 @@ public class RootsCompat implements IModCompat {
         }
         */
 
-        if(ConfigHandlerSE.roots.enableTerrastoneWeapons) {
+        if (ConfigHandlerSE.roots.enableTerrastoneWeapons) {
             terrastone_battleaxe = new ItemBattleaxeSE(LibNames.terrastone, WeaponPropertyLiving.TERRASTONE_MATERIAL_EX).setNoReequipAnimation();
             terrastone_boomerang = new ItemBoomerangSE(LibNames.terrastone, WeaponPropertyLiving.TERRASTONE_MATERIAL_EX).setNoReequipAnimation();
             terrastone_dagger = new ItemDaggerSE(LibNames.terrastone, WeaponPropertyLiving.TERRASTONE_MATERIAL_EX).setNoReequipAnimation();
@@ -117,7 +117,7 @@ public class RootsCompat implements IModCompat {
             terrastone_warhammer = new ItemWarhammerSE(LibNames.terrastone, WeaponPropertyLiving.TERRASTONE_MATERIAL_EX).setNoReequipAnimation();
         }
 
-        if(ConfigHandlerSE.roots.enableWildwoodBows) {
+        if (ConfigHandlerSE.roots.enableWildwoodBows) {
             wildwood_crossbow = new ItemWildwoodCrossbow();
             wildwood_longbow = new ItemWildwoodLongbow();
         }
@@ -205,7 +205,7 @@ public class RootsCompat implements IModCompat {
     }
 
     private void registerFeyCraftingLivingWeaponRecipe(Item outputItem, Item inputItem) {
-        if(inputItem != null && outputItem != null) {
+        if (inputItem != null && outputItem != null) {
             ModRecipes.addFeyCraftingRecipe(outputItem.getRegistryName(), new FeyCraftingRecipe(new ItemStack(outputItem), 1)
                     .addIngredients(
                             new GoldOrSilverIngotIngredient(),
@@ -218,7 +218,7 @@ public class RootsCompat implements IModCompat {
     }
 
     private void registerFeyCraftingRunedWeaponRecipe(Item outputItem, Item inputItem) {
-        if(inputItem != null && outputItem != null) {
+        if (inputItem != null && outputItem != null) {
             ModRecipes.addFeyCraftingRecipe(outputItem.getRegistryName(), new FeyCraftingRecipe(new ItemStack(outputItem), 1)
                     .addIngredients(
                             new OreIngredient("runedObsidian"),
@@ -231,7 +231,7 @@ public class RootsCompat implements IModCompat {
     }
 
     private void registerFeyCraftingTerrastoneWeaponRecipe(Item outputItem, Item inputItem) {
-        if(inputItem != null && outputItem != null) {
+        if (inputItem != null && outputItem != null) {
             ModRecipes.addFeyCraftingRecipe(outputItem.getRegistryName(), new FeyCraftingRecipe(new ItemStack(outputItem), 1)
                     .addIngredients(
                             new OreIngredient("runestone"),
@@ -244,7 +244,7 @@ public class RootsCompat implements IModCompat {
     }
 
     private void registerFeyCraftingWildwoodBowRecipe(Item outputItem, Item inputItem) {
-        if(inputItem != null && outputItem != null) {
+        if (inputItem != null && outputItem != null) {
             ModRecipes.addFeyCraftingRecipe(outputItem.getRegistryName(), new FeyCraftingRecipe(new ItemStack(outputItem), 1)
                     .addIngredients(
                             Ingredient.fromItem(inputItem),

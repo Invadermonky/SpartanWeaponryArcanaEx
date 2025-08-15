@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class ModEntitiesSE {
     public static void registerEntities() {
-        if(ModIds.astral_sorcery.isLoaded && ConfigHandlerSE.astral_sorcery.enableCrystalWeapons) {
+        if (ModIds.astral_sorcery.isLoaded && ConfigHandlerSE.astral_sorcery.enableCrystalWeapons) {
             EntityRegistry.registerModEntity(
                     new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "crystal_weapon_item"),
                     EntityCrystalWeapon.class,

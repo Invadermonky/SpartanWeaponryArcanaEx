@@ -20,8 +20,7 @@ public enum ModIds {
     natures_aura(ConstIds.natures_aura),
     roots(ConstIds.roots),
     spartan_shields(ConstIds.spartan_shields),
-    spartan_weaponry(ConstIds.spartan_weaponry)
-    ;
+    spartan_weaponry(ConstIds.spartan_weaponry);
 
     public final String modId;
     public final String version;

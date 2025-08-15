@@ -7,6 +7,7 @@ import epicsquid.roots.init.ModItems;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IRarity;
+import org.jetbrains.annotations.NotNull;
 
 public class ItemWildwoodCrossbow extends ItemCrossbowSE {
     public ItemWildwoodCrossbow() {
@@ -24,7 +25,7 @@ public class ItemWildwoodCrossbow extends ItemCrossbowSE {
     }
 
     @Override
-    public IRarity getForgeRarity(ItemStack stack) {
+    public @NotNull IRarity getForgeRarity(@NotNull ItemStack stack) {
         return EnumRarity.RARE;
     }
 }

@@ -32,18 +32,6 @@ public class WeaponPropertySentient extends WeaponPropertyWithCallbackSE impleme
     public static final WeaponPropertySentient SENTIENT_PROPERTY;
     public static final ToolMaterialEx SENTIENT_MATERIAL_EX;
 
-    static {
-        SENTIENT_PROPERTY = new WeaponPropertySentient();
-        SENTIENT_MATERIAL_EX = new ToolMaterialEx(
-                LibNames.material_sentient,
-                RegistrarBloodMagicItems.SOUL_TOOL_MATERIAL,
-                "bindingReagent",
-                SpartanWeaponryArcanaEx.MOD_ID,
-                Item.ToolMaterial.IRON.getAttackDamage(),
-                SENTIENT_PROPERTY
-        );
-    }
-
     public WeaponPropertySentient() {
         super(LibNames.material_sentient);
     }
@@ -54,23 +42,28 @@ public class WeaponPropertySentient extends WeaponPropertyWithCallbackSE impleme
     }
 
     @Override
-    public void applyAttributeToArrow(World world, EntityArrow entityArrow, EntityPlayer player, ItemStack bowStack) {
-        if(bowStack.getItem() instanceof ISpartanWillBow) {
-            ((ISpartanWillBow) bowStack.getItem()).applySentientArrowAttributes(bowStack, player, entityArrow);
-        }
-    }
-
-    @Override
     public void onHitEntity(ToolMaterialEx material, ItemStack stack, EntityLivingBase target, EntityLivingBase attacker, Entity projectile) {
-        if(projectile instanceof EntityThrownWeapon) {
+        if (projectile instanceof EntityThrownWeapon) {
             this.handleSentientProjectileHit(stack, target, attacker, (EntityThrownWeapon) projectile);
         } else {
             this.handleSentientMeleeHit(stack, target, attacker);
         }
     }
 
+    @Override
+    public void onCreateItem(ToolMaterialEx material, ItemStack stack) {
+        super.onCreateItem(material, stack);
+    }
+
+    @Override
+    public void applyAttributeToArrow(World world, EntityArrow entityArrow, EntityPlayer player, ItemStack bowStack) {
+        if (bowStack.getItem() instanceof ISpartanWillBow) {
+            ((ISpartanWillBow) bowStack.getItem()).applySentientArrowAttributes(bowStack, player, entityArrow);
+        }
+    }
+
     protected void handleSentientProjectileHit(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker, EntityThrownWeapon projectile) {
-        if(stack.getItem() instanceof ISpartanWillWeapon && attacker instanceof EntityPlayer) {
+        if (stack.getItem() instanceof ISpartanWillWeapon && attacker instanceof EntityPlayer) {
             ISpartanWillWeapon willWeapon = (ISpartanWillWeapon) stack.getItem();
             EntityPlayer player = (EntityPlayer) attacker;
             willWeapon.recalculatePowers(stack, player.world, player);
@@ -82,7 +75,7 @@ public class WeaponPropertySentient extends WeaponPropertyWithCallbackSE impleme
             switch (type) {
                 case CORROSIVE:
                     duration = willBracket >= 0 ? Ranged.poisonDuration[willBracket] : 0;
-                    if(duration > 0) {
+                    if (duration > 0) {
                         amplifier = Ranged.poisonLevel[willBracket];
                         target.addPotionEffect(new PotionEffect(MobEffects.POISON, duration, amplifier));
                     }
@@ -93,14 +86,14 @@ public class WeaponPropertySentient extends WeaponPropertyWithCallbackSE impleme
                     break;
                 case VENGEFUL:
                     duration = willBracket >= 0 ? Ranged.slownessDuration[willBracket] : 0;
-                    if(duration > 0) {
+                    if (duration > 0) {
                         amplifier = Ranged.slownessLevel[willBracket];
                         target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, duration, amplifier));
                     }
                     break;
                 case STEADFAST:
                     duration = willBracket >= 0 ? Ranged.levitationDuration[willBracket] : 0;
-                    if(duration > 0) {
+                    if (duration > 0) {
                         amplifier = Ranged.levitationLevel[willBracket];
                         target.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, duration, amplifier));
                     }
@@ -110,7 +103,7 @@ public class WeaponPropertySentient extends WeaponPropertyWithCallbackSE impleme
     }
 
     protected void handleSentientMeleeHit(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        if(stack.getItem() instanceof ISpartanWillWeapon && attacker instanceof EntityPlayer) {
+        if (stack.getItem() instanceof ISpartanWillWeapon && attacker instanceof EntityPlayer) {
             ISpartanWillWeapon willWeapon = (ISpartanWillWeapon) stack.getItem();
             EntityPlayer player = (EntityPlayer) attacker;
             willWeapon.recalculatePowers(stack, player.world, player);
@@ -119,25 +112,31 @@ public class WeaponPropertySentient extends WeaponPropertyWithCallbackSE impleme
             willWeapon.applyEffectToEntity(type, willBracket, target, attacker);
 
             ItemStack offStack = player.getHeldItemOffhand();
-            if(offStack.getItem() instanceof ISentientSwordEffectProvider) {
+            if (offStack.getItem() instanceof ISentientSwordEffectProvider) {
                 ISentientSwordEffectProvider provider = (ISentientSwordEffectProvider) offStack.getItem();
-                if(provider.providesEffectForWill(type))
+                if (provider.providesEffectForWill(type))
                     provider.applyOnHitEffect(type, stack, offStack, attacker, target);
             }
         }
     }
 
     @Override
-    public void onCreateItem(ToolMaterialEx material, ItemStack stack) {
-        super.onCreateItem(material, stack);
-    }
-
-    @Override
     public void onTooltip(ToolMaterialEx toolMaterialEx, ItemStack itemStack, World world, List<String> tooltip, ITooltipFlag iTooltipFlag) {
         tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
         tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey("material_sentient", "tooltip")));
-        if(GuiScreen.isShiftKeyDown()) {
-            tooltip.add(TextFormatting.ITALIC+ "  " + I18n.format(StringHelper.getTranslationKey("material_sentient", "tooltip", "desc")));
+        if (GuiScreen.isShiftKeyDown()) {
+            tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_sentient", "tooltip", "desc")));
         }
+    }
+    static {
+        SENTIENT_PROPERTY = new WeaponPropertySentient();
+        SENTIENT_MATERIAL_EX = new ToolMaterialEx(
+                LibNames.material_sentient,
+                RegistrarBloodMagicItems.SOUL_TOOL_MATERIAL,
+                "bindingReagent",
+                SpartanWeaponryArcanaEx.MOD_ID,
+                Item.ToolMaterial.IRON.getAttackDamage(),
+                SENTIENT_PROPERTY
+        );
     }
 }

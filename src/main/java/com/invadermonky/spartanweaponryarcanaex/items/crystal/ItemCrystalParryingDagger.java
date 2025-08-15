@@ -23,6 +23,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,17 +49,17 @@ public class ItemCrystalParryingDagger extends ItemParryingDaggerSE implements C
         return 1800;
     }
 
+    @Nullable
+    @Override
+    public CrystalProperties provideCurrentPropertiesOrNull(ItemStack stack) {
+        return ItemCrystalSword.getToolProperties(stack);
+    }
+
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
         CrystalProperties.addPropertyTooltip(prop, tooltip, this.getMaxSize(stack));
         super.addInformation(stack, worldIn, tooltip, flagIn);
-    }
-
-    @Nullable
-    @Override
-    public CrystalProperties provideCurrentPropertiesOrNull(ItemStack stack) {
-        return ItemCrystalSword.getToolProperties(stack);
     }
 
     @Override
@@ -67,32 +68,50 @@ public class ItemCrystalParryingDagger extends ItemParryingDaggerSE implements C
     }
 
     @Override
-    public boolean hasCustomEntity(ItemStack stack) {
+    public boolean isEnchantable(@NotNull ItemStack stack) {
+        return true;
+    }
+
+    public @NotNull Multimap<String, AttributeModifier> getAttributeModifiers(@NotNull EntityEquipmentSlot slot, @NotNull ItemStack stack) {
+        Multimap<String, AttributeModifier> modifiers = HashMultimap.create();
+        if (slot == EntityEquipmentSlot.MAINHAND) {
+            ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
+            if (prop != null) {
+                modifiers.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (1.0F + this.getDirectAttackDamage() * prop.getEfficiencyMultiplier()), 0));
+                modifiers.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.attackSpeed - 4.0, 0));
+            }
+        }
+
+        return modifiers;
+    }
+
+    @Override
+    public boolean isRepairable() {
+        return false;
+    }
+
+    @Override
+    public boolean hasCustomEntity(@NotNull ItemStack stack) {
         return true;
     }
 
     @Nullable
     @Override
-    public Entity createEntity(World world, Entity ei, ItemStack itemstack) {
+    public Entity createEntity(@NotNull World world, Entity ei, @NotNull ItemStack itemstack) {
         EntityCrystalWeapon newItem = new EntityCrystalWeapon(ei.world, ei.posX, ei.posY, ei.posZ, itemstack);
         newItem.motionX = ei.motionX;
         newItem.motionY = ei.motionY;
         newItem.motionZ = ei.motionZ;
         newItem.setDefaultPickupDelay();
         if (ei instanceof EntityItem) {
-            newItem.setThrower(((EntityItem)ei).getThrower());
-            newItem.setOwner(((EntityItem)ei).getOwner());
+            newItem.setThrower(((EntityItem) ei).getThrower());
+            newItem.setOwner(((EntityItem) ei).getOwner());
         }
         return newItem;
     }
 
     @Override
-    public boolean isEnchantable(ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public void setDamage(ItemStack stack, int damage) {
+    public void setDamage(@NotNull ItemStack stack, int damage) {
         super.setDamage(stack, 0);
         this.damageProperties(stack, damage);
     }
@@ -104,15 +123,15 @@ public class ItemCrystalParryingDagger extends ItemParryingDaggerSE implements C
         } else if (prop.getSize() <= 0) {
             super.setDamage(stack, 11);
         } else if (damage >= 0) {
-            for(int i = 0; i < damage; ++i) {
-                double chance = Math.pow((double)prop.getCollectiveCapability() / 100.0, 2.0);
-                if (chance >= (double)itemRand.nextFloat()) {
+            for (int i = 0; i < damage; ++i) {
+                double chance = Math.pow((double) prop.getCollectiveCapability() / 100.0, 2.0);
+                if (chance >= (double) itemRand.nextFloat()) {
                     if (itemRand.nextInt(3) == 0) {
                         prop = prop.copyDamagedCutting();
                     }
 
-                    double purity = (double)prop.getPurity() / 100.0;
-                    if (purity <= (double)itemRand.nextFloat() && itemRand.nextInt(3) == 0) {
+                    double purity = (double) prop.getPurity() / 100.0;
+                    if (purity <= (double) itemRand.nextFloat() && itemRand.nextInt(3) == 0) {
                         prop = prop.copyDamagedCutting();
                     }
                 }
@@ -125,23 +144,5 @@ public class ItemCrystalParryingDagger extends ItemParryingDaggerSE implements C
     @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
         return false;
-    }
-
-    @Override
-    public boolean isRepairable() {
-        return false;
-    }
-
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-        Multimap<String, AttributeModifier> modifiers = HashMultimap.create();
-        if (slot == EntityEquipmentSlot.MAINHAND) {
-            ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
-            if (prop != null) {
-                modifiers.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (1.0F + this.getDirectAttackDamage() * prop.getEfficiencyMultiplier()), 0));
-                modifiers.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.attackSpeed - 4.0, 0));
-            }
-        }
-
-        return modifiers;
     }
 }

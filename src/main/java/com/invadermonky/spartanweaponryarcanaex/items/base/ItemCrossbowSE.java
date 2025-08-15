@@ -22,6 +22,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -49,11 +50,6 @@ public class ItemCrossbowSE extends ItemCrossbow {
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
-        return this.hasCustomDisplayName ? I18n.translateToLocalFormatted(StringHelper.getTranslationKey(this.getRegistryName().getPath(), "item", "name")) : super.getItemStackDisplayName(stack);
-    }
-
-    @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         return this.doReequip ? super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) : oldStack.getItem() != newStack.getItem() || slotChanged || this.isLoaded(oldStack) != this.isLoaded(newStack);
     }
@@ -73,7 +69,7 @@ public class ItemCrossbowSE extends ItemCrossbow {
         bolt.shoot(vector.x, vector.y, vector.z, this.getBoltSpeed() * 3.0F, inaccuracyModifier);
         int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, crossbow);
         if (j > 0) {
-            bolt.setDamage(bolt.getDamage() + (double)j * 0.5 + 0.5);
+            bolt.setDamage(bolt.getDamage() + (double) j * 0.5 + 0.5);
         }
 
         int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, crossbow);
@@ -89,14 +85,19 @@ public class ItemCrossbowSE extends ItemCrossbow {
             bolt.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
         }
 
-        if(this.material != null) {
-            for(WeaponProperty property : this.material.getAllWeaponProperties()) {
-                if(property instanceof WeaponPropertyWithCallbackSE) {
+        if (this.material != null) {
+            for (WeaponProperty property : this.material.getAllWeaponProperties()) {
+                if (property instanceof WeaponPropertyWithCallbackSE) {
                     ((WeaponPropertyWithCallbackSE) property).applyAttributeToArrow(world, bolt, player, crossbow);
                 }
             }
         }
         world.spawnEntity(bolt);
+    }
+
+    @Override
+    public @NotNull String getItemStackDisplayName(ItemStack stack) {
+        return this.hasCustomDisplayName ? I18n.translateToLocalFormatted(StringHelper.getTranslationKey(this.getRegistryName().getPath(), "item", "name")) : super.getItemStackDisplayName(stack);
     }
 
     public Vec3d calculateEntityViewVectorSE(float pitch, float yaw) {
@@ -110,12 +111,12 @@ public class ItemCrossbowSE extends ItemCrossbow {
 
     @Nullable
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        if(this.material != null) {
+    public ICapabilityProvider initCapabilities(@NotNull ItemStack stack, @Nullable NBTTagCompound nbt) {
+        if (this.material != null) {
             for (WeaponProperty property : this.material.getAllWeaponProperties()) {
                 if (property instanceof WeaponPropertyWithCallbackSE) {
                     ICapabilityProvider capability = ((WeaponPropertyWithCallbackSE) property).initCapabilities(stack, nbt);
-                    if(capability != null)
+                    if (capability != null)
                         return capability;
                 }
             }

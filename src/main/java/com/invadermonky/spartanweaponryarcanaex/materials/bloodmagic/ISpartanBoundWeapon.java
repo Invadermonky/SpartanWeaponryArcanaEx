@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.Optional;
 @Optional.Interface(modid = ModIds.ConstIds.blood_magic, iface = "WayofTime.bloodmagic.iface.IBindable", striprefs = true)
 public interface ISpartanBoundWeapon extends IBindable, IActivatable {
     void syncWeaponValues(ItemStack stack);
+
     double getBaseAttackDamage();
+
     double getBaseAttackSpeed();
 }

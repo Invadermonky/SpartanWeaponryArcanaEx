@@ -38,8 +38,8 @@ public interface ISpartanWillBow extends IMultiWillTool, ISentientTool {
 
     default int getLevel(double souls) {
         int lvl = -1;
-        for(int i = 0; i < soulBracket.length; i++) {
-            if(souls >= soulBracket[i])
+        for (int i = 0; i < soulBracket.length; i++) {
+            if (souls >= soulBracket[i])
                 lvl = i;
         }
         return lvl;
@@ -80,7 +80,7 @@ public interface ISpartanWillBow extends IMultiWillTool, ISentientTool {
     }
 
     default void applySentientArrowAttributes(ItemStack bowStack, EntityPlayer player, EntityArrow entityArrow) {
-        if(bowStack.getItem() instanceof ISpartanWillBow) {
+        if (bowStack.getItem() instanceof ISpartanWillBow) {
             ISpartanWillBow willWeapon = (ISpartanWillBow) bowStack.getItem();
             EnumDemonWillType type = willWeapon.getCurrentType(bowStack);
             int willBracket = willWeapon.getCurrentWillBracket(bowStack);

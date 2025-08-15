@@ -32,9 +32,30 @@ import net.minecraftforge.registries.IForgeRegistry;
 import static com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE.*;
 
 public class BloodMagicCompat implements IModCompat {
+    public static void registerSoulForgeToolRecipe(Item outputItem, Item catalystItem) {
+        registerSoulForgeToolRecipe(outputItem, 0, 0, new ItemStack(RegistrarBloodMagicItems.SOUL_GEM), new ItemStack(catalystItem));
+    }
+
+    public static void registerSoulForgeToolRecipe(Item outputItem, double minimumSouls, double soulDrain, Object... ingredients) {
+        if (outputItem == null)
+            return;
+        BloodMagicAPI.INSTANCE.getRecipeRegistrar().addTartaricForge(new ItemStack(outputItem), minimumSouls, soulDrain, ingredients);
+    }
+
+    public static void registerBoundToolRecipe(Item outputItem, Item catalystItem) {
+        if (outputItem == null)
+            return;
+        AlchemyArrayRecipeRegistry.registerRecipe(
+                ComponentTypes.REAGENT_BINDING.getStack(),
+                new ItemStack(catalystItem),
+                new AlchemyArrayEffectBinding(outputItem.getRegistryName().getPath(), Utils.setUnbreakable(new ItemStack(outputItem))),
+                new BindingAlchemyCircleRenderer()
+        );
+    }
+
     @Override
     public void initializeWeapons() {
-        if(ConfigHandlerSE.blood_magic.enableBoundWeapons) {
+        if (ConfigHandlerSE.blood_magic.enableBoundWeapons) {
             bound_battleaxe = new ItemBoundBattleaxe();
             bound_boomerang = new ItemBoundBoomerang();
             bound_crossbow = new ItemBoundCrossbow();
@@ -46,7 +67,7 @@ public class BloodMagicCompat implements IModCompat {
             bound_javelin = new ItemBoundJavelin();
             bound_katana = new ItemBoundKatana();
             bound_lance = new ItemBoundLance();
-            bound_longbow = !ConfigHandler.woodenLongbowOnly ?new ItemBoundLongbow() : null;
+            bound_longbow = !ConfigHandler.woodenLongbowOnly ? new ItemBoundLongbow() : null;
             bound_longsword = new ItemBoundLongsword();
             bound_mace = new ItemBoundMace();
             bound_parrying_dagger = new ItemBoundParryingDagger();
@@ -64,7 +85,7 @@ public class BloodMagicCompat implements IModCompat {
             bound_warhammer = new ItemBoundWarhammer();
         }
 
-        if(ConfigHandlerSE.blood_magic.enableSentientWeapons) {
+        if (ConfigHandlerSE.blood_magic.enableSentientWeapons) {
             sentient_battleaxe = new ItemSentientBattleaxe();
             sentient_boomerang = new ItemSentientBoomerang();
             sentient_crossbow = new ItemSentientCrossbow();
@@ -124,7 +145,7 @@ public class BloodMagicCompat implements IModCompat {
 
         BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_battleaxe, ItemRegistrySW.battleaxeIron);
         BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_boomerang, ItemRegistrySW.boomerangIron);
-        BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_crossbow,  70.0, 0.0, new ItemStack(ItemRegistrySW.crossbowIron), new ItemStack(RegistrarBloodMagicItems.SOUL_GEM, 1, 1), "string", "string");
+        BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_crossbow, 70.0, 0.0, new ItemStack(ItemRegistrySW.crossbowIron), new ItemStack(RegistrarBloodMagicItems.SOUL_GEM, 1, 1), "string", "string");
         BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_dagger, ItemRegistrySW.daggerIron);
         BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_glaive, ItemRegistrySW.glaiveIron);
         BloodMagicCompat.registerSoulForgeToolRecipe(ModItemsSE.sentient_greatsword, ItemRegistrySW.greatswordIron);
@@ -152,9 +173,9 @@ public class BloodMagicCompat implements IModCompat {
     public void onProjectileImpact(ProjectileImpactEvent event) {
         Entity projectile = event.getEntity();
         World world = projectile.world;
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             NBTTagCompound entityTag = projectile.getEntityData();
-            if(entityTag.hasKey(LibTags.sentient_attributes)) {
+            if (entityTag.hasKey(LibTags.sentient_attributes)) {
                 Entity target = event.getRayTraceResult().entityHit;
                 EnumDemonWillType type = EnumDemonWillType.values()[entityTag.getCompoundTag(LibTags.sentient_attributes).getInteger(LibTags.will_type)];
                 int willBracket = entityTag.getCompoundTag(LibTags.sentient_attributes).getInteger(LibTags.will_bracket);
@@ -163,9 +184,9 @@ public class BloodMagicCompat implements IModCompat {
 
                 switch (type) {
                     case CORROSIVE:
-                        if(target instanceof EntityLivingBase) {
+                        if (target instanceof EntityLivingBase) {
                             duration = willBracket >= 0 ? LibAttributes.Ranged.poisonDuration[willBracket] : 0;
-                            if(duration > 0) {
+                            if (duration > 0) {
                                 amplifier = LibAttributes.Ranged.poisonLevel[willBracket];
                                 ((EntityLivingBase) target).addPotionEffect(new PotionEffect(MobEffects.POISON, duration, amplifier));
                             }
@@ -176,18 +197,18 @@ public class BloodMagicCompat implements IModCompat {
                         projectile.world.createExplosion(projectile, projectile.posX, projectile.posY, projectile.posZ, radius, false);
                         break;
                     case VENGEFUL:
-                        if(target instanceof EntityLivingBase) {
+                        if (target instanceof EntityLivingBase) {
                             duration = willBracket >= 0 ? LibAttributes.Ranged.slownessDuration[willBracket] : 0;
-                            if(duration > 0) {
+                            if (duration > 0) {
                                 amplifier = LibAttributes.Ranged.slownessLevel[willBracket];
                                 ((EntityLivingBase) target).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, duration, amplifier));
                             }
                         }
                         break;
                     case STEADFAST:
-                        if(target instanceof EntityLivingBase) {
+                        if (target instanceof EntityLivingBase) {
                             duration = willBracket >= 0 ? LibAttributes.Ranged.levitationDuration[willBracket] : 0;
-                            if(duration > 0) {
+                            if (duration > 0) {
                                 amplifier = LibAttributes.Ranged.levitationLevel[willBracket];
                                 ((EntityLivingBase) target).addPotionEffect(new PotionEffect(MobEffects.LEVITATION, duration, amplifier));
                             }
@@ -195,24 +216,5 @@ public class BloodMagicCompat implements IModCompat {
                 }
             }
         }
-    }
-
-    public static void registerSoulForgeToolRecipe(Item outputItem, Item catalystItem) {
-        registerSoulForgeToolRecipe(outputItem, 0, 0, new ItemStack(RegistrarBloodMagicItems.SOUL_GEM), new ItemStack(catalystItem));
-    }
-
-    public static void registerSoulForgeToolRecipe(Item outputItem, double minimumSouls, double soulDrain, Object... ingredients) {
-        if(outputItem == null) return;
-        BloodMagicAPI.INSTANCE.getRecipeRegistrar().addTartaricForge(new ItemStack(outputItem), minimumSouls, soulDrain, ingredients);
-    }
-
-    public static void registerBoundToolRecipe(Item outputItem, Item catalystItem) {
-        if(outputItem == null) return;
-        AlchemyArrayRecipeRegistry.registerRecipe(
-                ComponentTypes.REAGENT_BINDING.getStack(),
-                new ItemStack(catalystItem),
-                new AlchemyArrayEffectBinding(outputItem.getRegistryName().getPath(), Utils.setUnbreakable(new ItemStack(outputItem))),
-                new BindingAlchemyCircleRenderer()
-        );
     }
 }

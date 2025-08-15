@@ -49,9 +49,129 @@ import static com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE.*;
 import static hellfirepvp.astralsorcery.common.crafting.helper.ShapedRecipeSlot.*;
 
 public class AstralSorceryCompat implements IModCompat {
+    private static ItemStack getHeldImbuedWeapon(EntityPlayer player) {
+        if (player.getHeldItemMainhand().getItem() == ModItemsSE.infused_crystal_longbow || player.getHeldItemMainhand().getItem() == ModItemsSE.infused_crystal_crossbow) {
+            return player.getHeldItemMainhand();
+        } else if (player.getHeldItemOffhand().getItem() == ModItemsSE.infused_crystal_longbow || player.getHeldItemOffhand().getItem() == ModItemsSE.infused_crystal_crossbow) {
+            return player.getHeldItemOffhand();
+        }
+        return ItemStack.EMPTY;
+    }
+
+    public static void registerToolAltarRecipe(Item crystalTool, CrystalToolRecipe recipe) {
+        if (crystalTool == null)
+            return;
+        AltarRecipeRegistry.registerAltarRecipe(recipe);
+    }
+
+    public static void registerToolInfusionRecipe(Item infusedTool) {
+        if (infusedTool instanceof ChargedCrystalToolBase) {
+            InfusionRecipeRegistry.registerInfusionRecipe(new InfusionRecipeChargeTool((Item & ChargedCrystalToolBase) infusedTool));
+        }
+    }
+
+    public static void registerWeaponSharpeningRecipe() {
+        if (!ConfigHandlerSE.astral_sorcery.enableCrystalWeapons)
+            return;
+
+        // Need to blacklist the tool classes so they can't receive the 10% bonus sharpened damage.
+        blacklistSharpenableWeapon(crystal_battleaxe);
+        blacklistSharpenableWeapon(crystal_boomerang);
+        blacklistSharpenableWeapon(crystal_crossbow);
+        blacklistSharpenableWeapon(crystal_dagger);
+        blacklistSharpenableWeapon(crystal_glaive);
+        blacklistSharpenableWeapon(crystal_greatsword);
+        blacklistSharpenableWeapon(crystal_halberd);
+        blacklistSharpenableWeapon(crystal_hammer);
+        blacklistSharpenableWeapon(crystal_javelin);
+        blacklistSharpenableWeapon(crystal_katana);
+        blacklistSharpenableWeapon(crystal_lance);
+        blacklistSharpenableWeapon(crystal_longbow);
+        blacklistSharpenableWeapon(crystal_longsword);
+        blacklistSharpenableWeapon(crystal_mace);
+        blacklistSharpenableWeapon(crystal_parrying_dagger);
+        blacklistSharpenableWeapon(crystal_pike);
+        blacklistSharpenableWeapon(crystal_quarterstaff);
+        blacklistSharpenableWeapon(crystal_rapier);
+        blacklistSharpenableWeapon(crystal_saber);
+        blacklistSharpenableWeapon(crystal_scythe);
+        //TODO:
+        //  blacklistSharpenableWeapon(crystal_shield_basic);
+        //  blacklistSharpenableWeapon(crystal_shield_tower);
+        blacklistSharpenableWeapon(crystal_spear);
+        blacklistSharpenableWeapon(crystal_throwing_axe);
+        blacklistSharpenableWeapon(crystal_throwing_knife);
+        blacklistSharpenableWeapon(crystal_warhammer);
+
+        blacklistSharpenableWeapon(infused_crystal_battleaxe);
+        blacklistSharpenableWeapon(infused_crystal_boomerang);
+        blacklistSharpenableWeapon(infused_crystal_crossbow);
+        blacklistSharpenableWeapon(infused_crystal_dagger);
+        blacklistSharpenableWeapon(infused_crystal_glaive);
+        blacklistSharpenableWeapon(infused_crystal_greatsword);
+        blacklistSharpenableWeapon(infused_crystal_halberd);
+        blacklistSharpenableWeapon(infused_crystal_hammer);
+        blacklistSharpenableWeapon(infused_crystal_javelin);
+        blacklistSharpenableWeapon(infused_crystal_katana);
+        blacklistSharpenableWeapon(infused_crystal_lance);
+        blacklistSharpenableWeapon(infused_crystal_longbow);
+        blacklistSharpenableWeapon(infused_crystal_longsword);
+        blacklistSharpenableWeapon(infused_crystal_mace);
+        blacklistSharpenableWeapon(infused_crystal_parrying_dagger);
+        blacklistSharpenableWeapon(infused_crystal_pike);
+        blacklistSharpenableWeapon(infused_crystal_quarterstaff);
+        blacklistSharpenableWeapon(infused_crystal_rapier);
+        blacklistSharpenableWeapon(infused_crystal_saber);
+        blacklistSharpenableWeapon(infused_crystal_scythe);
+        //TODO:
+        //  blacklistSharpenableWeapon(infused_crystal_shield_basic);
+        //  blacklistSharpenableWeapon(infused_crystal_shield_tower);
+        blacklistSharpenableWeapon(infused_crystal_spear);
+        blacklistSharpenableWeapon(infused_crystal_throwing_axe);
+        blacklistSharpenableWeapon(infused_crystal_throwing_knife);
+        blacklistSharpenableWeapon(infused_crystal_warhammer);
+
+        class CrystalWeaponSharpeningRecipe extends GrindstoneRecipe {
+            public CrystalWeaponSharpeningRecipe() {
+                super(ItemStack.EMPTY, ItemStack.EMPTY, 40);
+            }
+
+            @Override
+            public boolean matches(ItemStack stackIn) {
+                return !stackIn.isEmpty() && stackIn.getItem() instanceof ISharpenableCrystalWeapon;
+            }
+
+            @Override
+            public boolean isValid() {
+                return true;
+            }
+
+            @Nonnull
+            @Override
+            public GrindResult grind(ItemStack stackIn) {
+                ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stackIn);
+                ToolCrystalProperties result = prop.grindCopy(rand);
+                if (result == null) {
+                    return GrindResult.failBreakItem();
+                } else {
+                    ItemCrystalSword.setToolProperties(stackIn, result);
+                    return result.getSize() <= 0 ? GrindResult.failBreakItem() : GrindResult.success();
+                }
+            }
+        }
+        //Registering the new weapon sharpening recipe.
+        GrindstoneRecipeRegistry.registerGrindstoneRecipe(new CrystalWeaponSharpeningRecipe());
+    }
+
+    public static void blacklistSharpenableWeapon(Item item) {
+        if (item != null) {
+            SwordSharpenHelper.blacklistedSharpenableSwordClassNames.add(item.getClass().getName());
+        }
+    }
+
     @Override
     public void initializeWeapons() {
-        if(ConfigHandlerSE.astral_sorcery.enableCrystalWeapons) {
+        if (ConfigHandlerSE.astral_sorcery.enableCrystalWeapons) {
             crystal_battleaxe = new ItemCrystalBattleaxe(LibNames.crystal, WeaponPropertyCrystal.CRYSTAL_MATERIAL_EX);
             crystal_boomerang = new ItemCrystalBoomerang(LibNames.crystal, WeaponPropertyCrystal.CRYSTAL_MATERIAL_EX);
             crystal_crossbow = new ItemCrystalCrossbow(LibNames.crystal, WeaponPropertyCrystal.CRYSTAL_MATERIAL_EX, WeaponPropertyCrystal.CRYSTAL_PROPERTY);
@@ -199,7 +319,7 @@ public class AstralSorceryCompat implements IModCompat {
                 .unregisteredAccessibleShapedRecipe(), LEFT, UPPER_CENTER));
 
         AstralSorceryCompat.registerToolAltarRecipe(ModItemsSE.crystal_pike, new CrystalToolRecipe(ShapedRecipe.Builder.newShapedRecipe("internal/altar/" + LibNames.crystal_pike, ModItemsSE.crystal_pike)
-                .addPart(new ItemStack(ItemRegistrySW.material,1 ,1), LOWER_CENTER, CENTER)
+                .addPart(new ItemStack(ItemRegistrySW.material, 1, 1), LOWER_CENTER, CENTER)
                 .addPart(ItemHandle.getCrystalVariant(false, false), UPPER_CENTER)
                 .unregisteredAccessibleShapedRecipe(), UPPER_CENTER));
 
@@ -294,18 +414,19 @@ public class AstralSorceryCompat implements IModCompat {
 
     @Override
     public void onProjectileImpact(ProjectileImpactEvent event) {
-        if(event.getEntity().world.isRemote) return;
+        if (event.getEntity().world.isRemote)
+            return;
 
         Entity target = event.getRayTraceResult().entityHit;
-        if(event.getEntity() instanceof EntityArrow && target instanceof EntityLivingBase) {
+        if (event.getEntity() instanceof EntityArrow && target instanceof EntityLivingBase) {
             NBTTagCompound tag = event.getEntity().getEntityData();
-            if(tag.getBoolean(LibTags.stellar_arrow) && tag.hasKey(LibTags.owner)) {
+            if (tag.getBoolean(LibTags.stellar_arrow) && tag.hasKey(LibTags.owner)) {
                 String owner = tag.getString(LibTags.owner);
                 EntityPlayer player = PlayerHelper.getPlayerFromUUID(UUID.fromString(owner));
-                if(player != null && player instanceof EntityPlayerMP) {
-                    EntityPlayerMP playerMp = (EntityPlayerMP)player;
+                if (player instanceof EntityPlayerMP) {
+                    EntityPlayerMP playerMp = (EntityPlayerMP) player;
                     ItemStack stack = getHeldImbuedWeapon(player);
-                    if(!stack.isEmpty()) {
+                    if (!stack.isEmpty()) {
                         if (!MiscUtils.isPlayerFakeMP(playerMp) && !player.isSneaking() && !playerMp.getCooldownTracker().hasCooldown(ItemsAS.chargedCrystalSword)) {
                             CelestialStrike.play(player, player.getEntityWorld(), Vector3.atEntityCorner(target), Vector3.atEntityCenter(target));
                             //The damage is dealt by the strike so the arrow is set dead.
@@ -318,125 +439,6 @@ public class AstralSorceryCompat implements IModCompat {
                     }
                 }
             }
-        }
-    }
-
-    private static ItemStack getHeldImbuedWeapon(EntityPlayer player) {
-        if(player.getHeldItemMainhand().getItem() == ModItemsSE.infused_crystal_longbow || player.getHeldItemMainhand().getItem() == ModItemsSE.infused_crystal_crossbow) {
-            return player.getHeldItemMainhand();
-        } else if(player.getHeldItemOffhand().getItem() == ModItemsSE.infused_crystal_longbow || player.getHeldItemOffhand().getItem() == ModItemsSE.infused_crystal_crossbow) {
-            return player.getHeldItemOffhand();
-        }
-        return ItemStack.EMPTY;
-    }
-
-    public static void registerToolAltarRecipe(Item crystalTool, CrystalToolRecipe recipe) {
-        if(crystalTool == null) return;
-        AltarRecipeRegistry.registerAltarRecipe(recipe);
-    }
-
-    public static void registerToolInfusionRecipe(Item infusedTool) {
-        if(infusedTool instanceof ChargedCrystalToolBase) {
-            InfusionRecipeRegistry.registerInfusionRecipe(new InfusionRecipeChargeTool((Item & ChargedCrystalToolBase) infusedTool));
-        }
-    }
-
-    public static void registerWeaponSharpeningRecipe() {
-        if(!ConfigHandlerSE.astral_sorcery.enableCrystalWeapons)
-            return;
-
-        // Need to blacklist the tool classes so they can't receive the 10% bonus sharpened damage.
-        blacklistSharpenableWeapon(crystal_battleaxe);
-        blacklistSharpenableWeapon(crystal_boomerang);
-        blacklistSharpenableWeapon(crystal_crossbow);
-        blacklistSharpenableWeapon(crystal_dagger);
-        blacklistSharpenableWeapon(crystal_glaive);
-        blacklistSharpenableWeapon(crystal_greatsword);
-        blacklistSharpenableWeapon(crystal_halberd);
-        blacklistSharpenableWeapon(crystal_hammer);
-        blacklistSharpenableWeapon(crystal_javelin);
-        blacklistSharpenableWeapon(crystal_katana);
-        blacklistSharpenableWeapon(crystal_lance);
-        blacklistSharpenableWeapon(crystal_longbow);
-        blacklistSharpenableWeapon(crystal_longsword);
-        blacklistSharpenableWeapon(crystal_mace);
-        blacklistSharpenableWeapon(crystal_parrying_dagger);
-        blacklistSharpenableWeapon(crystal_pike);
-        blacklistSharpenableWeapon(crystal_quarterstaff);
-        blacklistSharpenableWeapon(crystal_rapier);
-        blacklistSharpenableWeapon(crystal_saber);
-        blacklistSharpenableWeapon(crystal_scythe);
-        //TODO:
-        //  blacklistSharpenableWeapon(crystal_shield_basic);
-        //  blacklistSharpenableWeapon(crystal_shield_tower);
-        blacklistSharpenableWeapon(crystal_spear);
-        blacklistSharpenableWeapon(crystal_throwing_axe);
-        blacklistSharpenableWeapon(crystal_throwing_knife);
-        blacklistSharpenableWeapon(crystal_warhammer);
-
-        blacklistSharpenableWeapon(infused_crystal_battleaxe);
-        blacklistSharpenableWeapon(infused_crystal_boomerang);
-        blacklistSharpenableWeapon(infused_crystal_crossbow);
-        blacklistSharpenableWeapon(infused_crystal_dagger);
-        blacklistSharpenableWeapon(infused_crystal_glaive);
-        blacklistSharpenableWeapon(infused_crystal_greatsword);
-        blacklistSharpenableWeapon(infused_crystal_halberd);
-        blacklistSharpenableWeapon(infused_crystal_hammer);
-        blacklistSharpenableWeapon(infused_crystal_javelin);
-        blacklistSharpenableWeapon(infused_crystal_katana);
-        blacklistSharpenableWeapon(infused_crystal_lance);
-        blacklistSharpenableWeapon(infused_crystal_longbow);
-        blacklistSharpenableWeapon(infused_crystal_longsword);
-        blacklistSharpenableWeapon(infused_crystal_mace);
-        blacklistSharpenableWeapon(infused_crystal_parrying_dagger);
-        blacklistSharpenableWeapon(infused_crystal_pike);
-        blacklistSharpenableWeapon(infused_crystal_quarterstaff);
-        blacklistSharpenableWeapon(infused_crystal_rapier);
-        blacklistSharpenableWeapon(infused_crystal_saber);
-        blacklistSharpenableWeapon(infused_crystal_scythe);
-        //TODO:
-        //  blacklistSharpenableWeapon(infused_crystal_shield_basic);
-        //  blacklistSharpenableWeapon(infused_crystal_shield_tower);
-        blacklistSharpenableWeapon(infused_crystal_spear);
-        blacklistSharpenableWeapon(infused_crystal_throwing_axe);
-        blacklistSharpenableWeapon(infused_crystal_throwing_knife);
-        blacklistSharpenableWeapon(infused_crystal_warhammer);
-
-        class CrystalWeaponSharpeningRecipe extends GrindstoneRecipe {
-            public CrystalWeaponSharpeningRecipe() {
-                super(ItemStack.EMPTY, ItemStack.EMPTY, 40);
-            }
-
-            @Override
-            public boolean matches(ItemStack stackIn) {
-                return !stackIn.isEmpty() && stackIn.getItem() instanceof ISharpenableCrystalWeapon;
-            }
-
-            @Override
-            public boolean isValid() {
-                return true;
-            }
-
-            @Nonnull
-            @Override
-            public GrindResult grind(ItemStack stackIn) {
-                ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stackIn);
-                ToolCrystalProperties result = prop.grindCopy(rand);
-                if(result == null) {
-                    return GrindResult.failBreakItem();
-                } else {
-                    ItemCrystalSword.setToolProperties(stackIn, result);
-                    return result.getSize() <= 0 ? GrindResult.failBreakItem() : GrindResult.success();
-                }
-            }
-        }
-        //Registering the new weapon sharpening recipe.
-        GrindstoneRecipeRegistry.registerGrindstoneRecipe(new CrystalWeaponSharpeningRecipe());
-    }
-
-    public static void blacklistSharpenableWeapon(Item item) {
-        if(item != null) {
-            SwordSharpenHelper.blacklistedSharpenableSwordClassNames.add(item.getClass().getName());
         }
     }
 }

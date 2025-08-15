@@ -8,13 +8,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface IProxy {
     default void preInit(FMLPreInitializationEvent event) {}
+
     default void init(FMLInitializationEvent event) {}
+
     default void postInit(FMLPostInitializationEvent event) {}
 
     @SideOnly(Side.CLIENT)
     default void preInitClient(FMLPreInitializationEvent event) {}
+
     @SideOnly(Side.CLIENT)
     default void initClient(FMLInitializationEvent event) {}
+
     @SideOnly(Side.CLIENT)
     default void postInitClient(FMLPostInitializationEvent event) {}
 }

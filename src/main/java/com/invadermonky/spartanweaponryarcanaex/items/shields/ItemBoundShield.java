@@ -26,6 +26,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -46,15 +47,8 @@ public class ItemBoundShield {
             }
 
             @Override
-            public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-                if(this.isInCreativeTab(tab)) {
-                    items.add(Utils.setUnbreakable(new ItemStack(this)));
-                }
-            }
-
-            @Override
-            public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-                if(entity instanceof EntityLivingBase) {
+            public void onUpdate(@NotNull ItemStack stack, @NotNull World world, @NotNull Entity entity, int itemSlot, boolean isSelected) {
+                if (entity instanceof EntityLivingBase) {
                     this.setActivatedState(stack, stack == ((EntityLivingBase) entity).getHeldItemOffhand());
                 }
 
@@ -63,38 +57,45 @@ public class ItemBoundShield {
                     this.setActivatedState(stack, false);
                 } else {
                     if (entity instanceof EntityPlayer && this.getActivated(stack) && world.getTotalWorldTime() % 80L == 0L) {
-                        NetworkHelper.getSoulNetwork(binding).syphonAndDamage((EntityPlayer)entity, SoulTicket.item(stack, world, entity, 20));
+                        NetworkHelper.getSoulNetwork(binding).syphonAndDamage((EntityPlayer) entity, SoulTicket.item(stack, world, entity, 20));
                     }
 
                 }
             }
 
             @Override
+            public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
+                if (this.isInCreativeTab(tab)) {
+                    items.add(Utils.setUnbreakable(new ItemStack(this)));
+                }
+            }
+
+            @Override
             public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
                 String desc = StringHelper.getTranslationKey(this.getRegistryName().getPath(), "tooltip", "desc");
-                if(I18n.hasKey(desc)) {
+                if (I18n.hasKey(desc)) {
                     tooltip.add(I18n.format(desc));
                 }
                 tooltip.add(TextHelper.localize("tooltip.bloodmagic." + (this.getActivated(stack) ? "activated" : "deactivated")));
                 Binding binding = this.getBinding(stack);
-                if(binding != null) {
+                if (binding != null) {
                     tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentOwner", binding.getOwnerName()));
                 }
                 super.addInformation(stack, worldIn, tooltip, flagIn);
             }
 
             @Override
-            public void addEffectsTooltip(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-                tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
-                tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey("material_bound", "tooltip")));
-                if(GuiScreen.isShiftKeyDown()) {
-                    tooltip.add(TextFormatting.ITALIC+ "  " + I18n.format(StringHelper.getTranslationKey("material_bound_shield", "tooltip", "desc")));
-                }
+            public @NotNull EnumAction getItemUseAction(ItemStack stack) {
+                return ((IActivatable) stack.getItem()).getActivated(stack) ? super.getItemUseAction(stack) : EnumAction.NONE;
             }
 
             @Override
-            public EnumAction getItemUseAction(ItemStack stack) {
-                return ((IActivatable) stack.getItem()).getActivated(stack) ? super.getItemUseAction(stack) : EnumAction.NONE;
+            public void addEffectsTooltip(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+                tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
+                tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey("material_bound", "tooltip")));
+                if (GuiScreen.isShiftKeyDown()) {
+                    tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_bound_shield", "tooltip", "desc")));
+                }
             }
         }
 

@@ -25,6 +25,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -52,36 +53,7 @@ public class ItemSentientRapier extends ItemRapierSE implements ISpartanWillWeap
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        this.recalculatePowers(player.getHeldItem(hand), world, player);
-        return super.onItemRightClick(world, player, hand);
-    }
-
-    @Override
-    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity targetEntity) {
-        this.recalculatePowers(stack, player.world, player);
-        double drain = this.getDrainOfActivatedWeapon(stack);
-        if(drain > 0.0) {
-            EnumDemonWillType type = this.getCurrentType(stack);
-            double soulsRemaining = PlayerDemonWillHandler.getTotalDemonWill(type, player);
-            if(drain > soulsRemaining) {
-                return false;
-            }
-            PlayerDemonWillHandler.consumeDemonWill(type, player, drain);
-        }
-        return super.onLeftClickEntity(stack, player, targetEntity);
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(stack.hasTagCompound()) {
-            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + this.getCurrentType(stack).getName().toLowerCase()));
-        }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-    }
-
-    @Override
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+    public @NotNull Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.create();
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getBaseAttackDamage(), 0));
@@ -92,7 +64,41 @@ public class ItemSentientRapier extends ItemRapierSE implements ISpartanWillWeap
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if (stack.hasTagCompound()) {
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + this.getCurrentType(stack).getName().toLowerCase()));
+        }
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
+    }
+
+    @Override
+    public @NotNull ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        this.recalculatePowers(player.getHeldItem(hand), world, player);
+        return super.onItemRightClick(world, player, hand);
+    }
+
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity targetEntity) {
+        this.recalculatePowers(stack, player.world, player);
+        double drain = this.getDrainOfActivatedWeapon(stack);
+        if (drain > 0.0) {
+            EnumDemonWillType type = this.getCurrentType(stack);
+            double soulsRemaining = PlayerDemonWillHandler.getTotalDemonWill(type, player);
+            if (drain > soulsRemaining) {
+                return false;
+            }
+            PlayerDemonWillHandler.consumeDemonWill(type, player, drain);
+        }
+        return super.onLeftClickEntity(stack, player, targetEntity);
+    }
+
+    @Override
+    public @NotNull Multimap<String, AttributeModifier> getAttributeModifiers(@NotNull EntityEquipmentSlot slot, @NotNull ItemStack stack) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.create();
         if (slot == EntityEquipmentSlot.MAINHAND) {
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getDamageOfActivatedWeapon(stack), 0));
@@ -102,11 +108,6 @@ public class ItemSentientRapier extends ItemRapierSE implements ISpartanWillWeap
         }
 
         return multimap;
-    }
-
-    @Override
-    public float getDirectAttackDamage() {
-        return this.directAttackDamage;
     }
 
     @Override

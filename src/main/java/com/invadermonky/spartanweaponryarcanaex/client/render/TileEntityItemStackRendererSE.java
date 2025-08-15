@@ -11,6 +11,7 @@ import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class TileEntityItemStackRendererSE extends TileEntityItemStackRenderer {
     protected final BannerTextures.Cache SHIELD_BANNER_DESIGNS;
@@ -27,7 +28,7 @@ public class TileEntityItemStackRendererSE extends TileEntityItemStackRenderer {
     }
 
     @Override
-    public void renderByItem(ItemStack stack) {
+    public void renderByItem(@NotNull ItemStack stack) {
         this.renderByItem(stack, 1.0f);
     }
 
@@ -35,11 +36,10 @@ public class TileEntityItemStackRendererSE extends TileEntityItemStackRenderer {
     public void renderByItem(ItemStack stack, float partialTicks) {
         Item item = stack.getItem();
         if (item == this.shield) {
-            if(stack.getSubCompound("BlockEntityTag") != null) {
+            if (stack.getSubCompound("BlockEntityTag") != null) {
                 this.banner.setItemValues(stack, true);
                 Minecraft.getMinecraft().getTextureManager().bindTexture(this.SHIELD_BANNER_DESIGNS.getResourceLocation(this.banner.getPatternResourceLocation(), this.banner.getPatternList(), this.banner.getColorList()));
-            }
-            else {
+            } else {
                 Minecraft.getMinecraft().getTextureManager().bindTexture(this.TEXTURE_SHIELD_NO_PATTERN);
             }
             GlStateManager.pushMatrix();

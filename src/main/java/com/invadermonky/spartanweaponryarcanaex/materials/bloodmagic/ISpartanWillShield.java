@@ -49,8 +49,8 @@ public interface ISpartanWillShield extends IMultiWillTool {
 
     default int getLevel(ItemStack stack, double soulsRemaining) {
         int level = -1;
-        for(int i = 0; i < soulBracket.length; i++) {
-            if(soulsRemaining >= (double) soulBracket[i])
+        for (int i = 0; i < soulBracket.length; i++) {
+            if (soulsRemaining >= (double) soulBracket[i])
                 level = i;
         }
         return level;

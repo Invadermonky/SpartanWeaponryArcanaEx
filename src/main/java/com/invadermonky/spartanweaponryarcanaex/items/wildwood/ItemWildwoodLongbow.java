@@ -7,6 +7,7 @@ import epicsquid.roots.init.ModItems;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IRarity;
+import org.jetbrains.annotations.NotNull;
 
 public class ItemWildwoodLongbow extends ItemLongbowSE {
 
@@ -20,7 +21,7 @@ public class ItemWildwoodLongbow extends ItemLongbowSE {
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
+    public @NotNull String getItemStackDisplayName(ItemStack stack) {
         return super.getItemStackDisplayName(stack);
     }
 
@@ -30,7 +31,7 @@ public class ItemWildwoodLongbow extends ItemLongbowSE {
     }
 
     @Override
-    public IRarity getForgeRarity(ItemStack stack) {
+    public @NotNull IRarity getForgeRarity(@NotNull ItemStack stack) {
         return EnumRarity.RARE;
     }
 }

@@ -12,7 +12,7 @@ public class ConditionFactoryConfiguration implements IConditionFactory {
     public BooleanSupplier parse(JsonContext context, JsonObject json) {
         String key = "config";
         boolean result = true;
-        if(json.has(key)) {
+        if (json.has(key)) {
             String configKey = json.get(key).getAsString();
             switch (configKey) {
                 case "frostfire":

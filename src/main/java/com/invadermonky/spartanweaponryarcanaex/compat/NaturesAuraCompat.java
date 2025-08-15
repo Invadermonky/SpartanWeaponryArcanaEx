@@ -19,7 +19,7 @@ import static com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE.*;
 public class NaturesAuraCompat implements IModCompat {
     @Override
     public void initializeWeapons() {
-        if(ConfigHandlerSE.natures_aura.enableInfusedIronWeapons) {
+        if (ConfigHandlerSE.natures_aura.enableInfusedIronWeapons) {
             infused_iron_battleaxe = new ItemBattleaxeSE(LibNames.infused_iron, WeaponPropertyInfusedIron.INFUSED_IRON_MATERIAL_EX);
             infused_iron_boomerang = new ItemBoomerangSE(LibNames.infused_iron, WeaponPropertyInfusedIron.INFUSED_IRON_MATERIAL_EX);
             infused_iron_crossbow = new ItemCrossbowSE(LibNames.infused_iron, WeaponPropertyInfusedIron.INFUSED_IRON_MATERIAL_EX, WeaponPropertyAuraRepair.AURA_REPAIR_PROPERTY).setHasCustomDisplayName();
@@ -52,7 +52,8 @@ public class NaturesAuraCompat implements IModCompat {
 
     @Override
     public void initializeRecipes(IForgeRegistry<IRecipe> registry) {
-        if(!ConfigHandlerSE.natures_aura.useNaturalAltarRecipes) return;
+        if (!ConfigHandlerSE.natures_aura.useNaturalAltarRecipes)
+            return;
 
         registerAltarWeaponRecipe(infused_iron_battleaxe, ItemRegistrySW.battleaxeIron);
         registerAltarWeaponRecipe(infused_iron_boomerang, ItemRegistrySW.boomerangIron);
@@ -81,7 +82,7 @@ public class NaturesAuraCompat implements IModCompat {
     }
 
     private void registerAltarWeaponRecipe(Item outputItem, Item inputItem) {
-        if(inputItem != null && outputItem != null) {
+        if (inputItem != null && outputItem != null) {
             (new AltarRecipe(outputItem.getRegistryName(), Ingredient.fromItem(inputItem), new ItemStack(outputItem), Ingredient.EMPTY, 45000, 200)).register();
         }
     }

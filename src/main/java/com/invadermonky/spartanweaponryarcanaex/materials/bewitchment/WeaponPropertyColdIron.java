@@ -12,18 +12,6 @@ public class WeaponPropertyColdIron extends WeaponPropertyWithCallbackSE {
     public static final WeaponPropertyColdIron COLD_IRON_PROPERTY;
     public static final ToolMaterialEx COLD_IRON_MATERIAL_EX;
 
-    static {
-        COLD_IRON_PROPERTY = new WeaponPropertyColdIron();
-        COLD_IRON_MATERIAL_EX = new ToolMaterialEx(
-                COLD_IRON_MATERIAL,
-                ModObjects.TOOL_COLD_IRON,
-                "ingotColdIron",
-                SpartanWeaponryArcanaEx.MOD_ID,
-                ModObjects.TOOL_COLD_IRON.getAttackDamage(),
-                COLD_IRON_PROPERTY
-        );
-    }
-
     public WeaponPropertyColdIron() {
         super(COLD_IRON_MATERIAL);
     }
@@ -35,5 +23,16 @@ public class WeaponPropertyColdIron extends WeaponPropertyWithCallbackSE {
         return amount > 1.0f ? baseDamage * amount : baseDamage;
          */
         return baseDamage;
+    }
+    static {
+        COLD_IRON_PROPERTY = new WeaponPropertyColdIron();
+        COLD_IRON_MATERIAL_EX = new ToolMaterialEx(
+                COLD_IRON_MATERIAL,
+                ModObjects.TOOL_COLD_IRON,
+                "ingotColdIron",
+                SpartanWeaponryArcanaEx.MOD_ID,
+                ModObjects.TOOL_COLD_IRON.getAttackDamage(),
+                COLD_IRON_PROPERTY
+        );
     }
 }

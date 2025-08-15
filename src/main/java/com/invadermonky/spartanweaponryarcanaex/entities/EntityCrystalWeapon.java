@@ -27,8 +27,8 @@ import java.util.List;
 
 @Optional.Interface(modid = ModIds.ConstIds.astral_sorcery, iface = "hellfirepvp.astralsorcery.common.entities.EntityStarlightReacttant")
 public class EntityCrystalWeapon extends EntityItem implements EntityStarlightReacttant {
-    private static final AxisAlignedBB boxCraft = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
     public static final int TOTAL_MERGE_TIME = 1000;
+    private static final AxisAlignedBB boxCraft = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
     private int inertMergeTick = 0;
 
     public EntityCrystalWeapon(World worldIn, double x, double y, double z) {
@@ -79,7 +79,7 @@ public class EntityCrystalWeapon extends EntityItem implements EntityStarlightRe
 
     @Nullable
     private ToolCrystalProperties getProperties() {
-        if(this.getItem().isEmpty()) {
+        if (this.getItem().isEmpty()) {
             return null;
         } else {
             return this.getItem().getItem() instanceof CrystalPropertyItem ? ItemCrystalSword.getToolProperties(this.getItem()) : null;
@@ -97,7 +97,7 @@ public class EntityCrystalWeapon extends EntityItem implements EntityStarlightRe
     private void increaseSize() {
         this.world.setBlockToAir(this.getPosition());
         List<Entity> foundItems = this.world.getEntitiesInAABBexcluding(this, boxCraft.offset(this.posX, this.posY, this.posZ).grow(0.1), Predicates.or(EntityUtils.selectItemClassInstaceof(ItemCrystalToolBase.class), EntityUtils.selectItemClassInstaceof(ItemCrystalSword.class)));
-        if (foundItems.size() <= 0) {
+        if (foundItems.isEmpty()) {
             CrystalProperties prop = this.getProperties();
             if (prop != null) {
                 int max = CrystalProperties.getMaxSize(this.getItem());
@@ -111,8 +111,8 @@ public class EntityCrystalWeapon extends EntityItem implements EntityStarlightRe
 
     @SideOnly(Side.CLIENT)
     private void spawnCraftingParticles() {
-        EntityFXFacingParticle p = EffectHelper.genericFlareParticle(this.posX + (double)this.rand.nextFloat() * 0.2 * (double)(this.rand.nextBoolean() ? 1 : -1), this.posY + (double)this.rand.nextFloat() * 0.2 * (double)(this.rand.nextBoolean() ? 1 : -1), this.posZ + (double)this.rand.nextFloat() * 0.2 * (double)(this.rand.nextBoolean() ? 1 : -1));
-        p.motion((double)this.rand.nextFloat() * 0.02 * (double)(this.rand.nextBoolean() ? 1 : -1), (double)this.rand.nextFloat() * 0.04 * (double)(this.rand.nextBoolean() ? 1 : -1), (double)this.rand.nextFloat() * 0.02 * (double)(this.rand.nextBoolean() ? 1 : -1));
+        EntityFXFacingParticle p = EffectHelper.genericFlareParticle(this.posX + (double) this.rand.nextFloat() * 0.2 * (double) (this.rand.nextBoolean() ? 1 : -1), this.posY + (double) this.rand.nextFloat() * 0.2 * (double) (this.rand.nextBoolean() ? 1 : -1), this.posZ + (double) this.rand.nextFloat() * 0.2 * (double) (this.rand.nextBoolean() ? 1 : -1));
+        p.motion((double) this.rand.nextFloat() * 0.02 * (double) (this.rand.nextBoolean() ? 1 : -1), (double) this.rand.nextFloat() * 0.04 * (double) (this.rand.nextBoolean() ? 1 : -1), (double) this.rand.nextFloat() * 0.02 * (double) (this.rand.nextBoolean() ? 1 : -1));
         p.gravity(0.01);
         p.scale(0.2F).setColor(BlockCollectorCrystalBase.CollectorCrystalType.ROCK_CRYSTAL.displayColor);
     }
@@ -122,7 +122,7 @@ public class EntityCrystalWeapon extends EntityItem implements EntityStarlightRe
             return false;
         } else {
             List<Entity> foundEntities = this.world.getEntitiesInAABBexcluding(this, boxCraft.offset(this.getPosition()), EntityUtils.selectEntities(Entity.class));
-            return foundEntities.size() <= 0;
+            return foundEntities.isEmpty();
         }
     }
 }

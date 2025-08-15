@@ -15,6 +15,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -29,19 +30,19 @@ public class ItemSentientLongbow extends ItemLongbowSE implements ISpartanWillBo
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == RegistrarBloodMagicItems.ITEM_DEMON_CRYSTAL || super.getIsRepairable(toRepair, repair);
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public @NotNull ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         this.recalculatePowers(playerIn.getHeldItem(handIn), playerIn.world, playerIn);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Override
+    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+        return repair.getItem() == RegistrarBloodMagicItems.ITEM_DEMON_CRYSTAL || super.getIsRepairable(toRepair, repair);
+    }
+
+    @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(stack.hasTagCompound()) {
+        if (stack.hasTagCompound()) {
             tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + this.getCurrentType(stack).getName().toLowerCase()));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);

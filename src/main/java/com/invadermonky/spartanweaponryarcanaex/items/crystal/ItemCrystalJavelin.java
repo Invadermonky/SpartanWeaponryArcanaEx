@@ -23,6 +23,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,13 +49,6 @@ public class ItemCrystalJavelin extends ItemJavelinSE implements CrystalProperty
         return 1800;
     }
 
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
-        CrystalProperties.addPropertyTooltip(prop, tooltip, this.getMaxSize(stack));
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-    }
-
     @Nullable
     @Override
     public CrystalProperties provideCurrentPropertiesOrNull(ItemStack stack) {
@@ -66,73 +60,7 @@ public class ItemCrystalJavelin extends ItemJavelinSE implements CrystalProperty
         return 10;
     }
 
-    @Override
-    public boolean hasCustomEntity(ItemStack stack) {
-        return true;
-    }
-
-    @Nullable
-    @Override
-    public Entity createEntity(World world, Entity ei, ItemStack itemstack) {
-        EntityCrystalWeapon newItem = new EntityCrystalWeapon(ei.world, ei.posX, ei.posY, ei.posZ, itemstack);
-        newItem.motionX = ei.motionX;
-        newItem.motionY = ei.motionY;
-        newItem.motionZ = ei.motionZ;
-        newItem.setDefaultPickupDelay();
-        if (ei instanceof EntityItem) {
-            newItem.setThrower(((EntityItem)ei).getThrower());
-            newItem.setOwner(((EntityItem)ei).getOwner());
-        }
-        return newItem;
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public void setDamage(ItemStack stack, int damage) {
-        super.setDamage(stack, 0);
-        this.damageProperties(stack, damage);
-    }
-
-    private void damageProperties(ItemStack stack, int damage) {
-        ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
-        if (prop == null) {
-            stack.setItemDamage(stack.getMaxDamage());
-        } else if (prop.getSize() <= 0) {
-            super.setDamage(stack, 11);
-        } else if (damage >= 0) {
-            for(int i = 0; i < damage; ++i) {
-                double chance = Math.pow((double)prop.getCollectiveCapability() / 100.0, 2.0);
-                if (chance >= (double)itemRand.nextFloat()) {
-                    if (itemRand.nextInt(3) == 0) {
-                        prop = prop.copyDamagedCutting();
-                    }
-
-                    double purity = (double)prop.getPurity() / 100.0;
-                    if (purity <= (double)itemRand.nextFloat() && itemRand.nextInt(3) == 0) {
-                        prop = prop.copyDamagedCutting();
-                    }
-                }
-            }
-
-            ItemCrystalSword.setToolProperties(stack, prop);
-        }
-    }
-
-    @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return false;
-    }
-
-    @Override
-    public boolean isRepairable() {
-        return false;
-    }
-
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+    public @NotNull Multimap<String, AttributeModifier> getAttributeModifiers(@NotNull EntityEquipmentSlot slot, @NotNull ItemStack stack) {
         Multimap<String, AttributeModifier> modifiers = HashMultimap.create();
         if (slot == EntityEquipmentSlot.MAINHAND) {
             ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
@@ -143,5 +71,78 @@ public class ItemCrystalJavelin extends ItemJavelinSE implements CrystalProperty
         }
 
         return modifiers;
+    }
+
+    @Override
+    public boolean hasCustomEntity(@NotNull ItemStack stack) {
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public Entity createEntity(@NotNull World world, Entity ei, @NotNull ItemStack itemstack) {
+        EntityCrystalWeapon newItem = new EntityCrystalWeapon(ei.world, ei.posX, ei.posY, ei.posZ, itemstack);
+        newItem.motionX = ei.motionX;
+        newItem.motionY = ei.motionY;
+        newItem.motionZ = ei.motionZ;
+        newItem.setDefaultPickupDelay();
+        if (ei instanceof EntityItem) {
+            newItem.setThrower(((EntityItem) ei).getThrower());
+            newItem.setOwner(((EntityItem) ei).getOwner());
+        }
+        return newItem;
+    }
+
+    @Override
+    public void setDamage(@NotNull ItemStack stack, int damage) {
+        super.setDamage(stack, 0);
+        this.damageProperties(stack, damage);
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public boolean isRepairable() {
+        return false;
+    }
+
+    @Override
+    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+        return false;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
+        CrystalProperties.addPropertyTooltip(prop, tooltip, this.getMaxSize(stack));
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    private void damageProperties(ItemStack stack, int damage) {
+        ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
+        if (prop == null) {
+            stack.setItemDamage(stack.getMaxDamage());
+        } else if (prop.getSize() <= 0) {
+            super.setDamage(stack, 11);
+        } else if (damage >= 0) {
+            for (int i = 0; i < damage; ++i) {
+                double chance = Math.pow((double) prop.getCollectiveCapability() / 100.0, 2.0);
+                if (chance >= (double) itemRand.nextFloat()) {
+                    if (itemRand.nextInt(3) == 0) {
+                        prop = prop.copyDamagedCutting();
+                    }
+
+                    double purity = (double) prop.getPurity() / 100.0;
+                    if (purity <= (double) itemRand.nextFloat() && itemRand.nextInt(3) == 0) {
+                        prop = prop.copyDamagedCutting();
+                    }
+                }
+            }
+
+            ItemCrystalSword.setToolProperties(stack, prop);
+        }
     }
 }

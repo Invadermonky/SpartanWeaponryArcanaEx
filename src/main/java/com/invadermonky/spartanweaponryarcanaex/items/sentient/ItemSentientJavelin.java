@@ -27,6 +27,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -49,47 +50,55 @@ public class ItemSentientJavelin extends ItemJavelinSE implements ISpartanWillWe
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == RegistrarBloodMagicItems.ITEM_DEMON_CRYSTAL || super.getIsRepairable(toRepair, repair);
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+    public @NotNull ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         this.recalculatePowers(player.getHeldItem(hand), world, player);
         return super.onItemRightClick(world, player, hand);
     }
 
     @Override
-    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity targetEntity) {
-        this.recalculatePowers(stack, player.world, player);
-        double drain = this.getDrainOfActivatedWeapon(stack);
-        if(drain > 0.0) {
-            EnumDemonWillType type = this.getCurrentType(stack);
-            double soulsRemaining = PlayerDemonWillHandler.getTotalDemonWill(type, player);
-            if(drain > soulsRemaining) {
-                return false;
-            }
-            PlayerDemonWillHandler.consumeDemonWill(type, player, drain);
+    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+        return repair.getItem() == RegistrarBloodMagicItems.ITEM_DEMON_CRYSTAL || super.getIsRepairable(toRepair, repair);
+    }
+
+    @Override
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
+    }
+
+    @Override
+    public @NotNull Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
+        if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getBaseAttackDamage(), 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getBaseAttackSpeed() - 4.0, 0));
         }
-        return super.onLeftClickEntity(stack, player, targetEntity);
+        return multimap;
     }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         EnumDemonWillType type = this.getCurrentType(stack);
-        if(type != EnumDemonWillType.VENGEFUL && this.getMaxItemUseDuration(stack) - entityLiving.getItemInUseCount() <= 2) {
+        if (type != EnumDemonWillType.VENGEFUL && this.getMaxItemUseDuration(stack) - entityLiving.getItemInUseCount() <= 2) {
             return;
         }
         super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
     }
 
     @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if (stack.hasTagCompound()) {
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + this.getCurrentType(stack).getName().toLowerCase()));
+        }
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
     public int getMaxChargeTicks(ItemStack stack) {
-        if(stack.getItem() instanceof ISpartanWillWeapon) {
+        if (stack.getItem() instanceof ISpartanWillWeapon) {
             ISpartanWillWeapon willWeapon = (ISpartanWillWeapon) stack.getItem();
             EnumDemonWillType type = willWeapon.getCurrentType(stack);
             int willBracket = willWeapon.getCurrentWillBracket(stack);
-            if(willBracket >= 0) {
+            if (willBracket >= 0) {
                 switch (type) {
                     case DESTRUCTIVE:
                         return (int) Math.ceil((double) super.getMaxChargeTicks(stack) * (1 + LibAttributes.Ranged.destructiveChargeTicksModifier[willBracket]));
@@ -102,25 +111,7 @@ public class ItemSentientJavelin extends ItemJavelinSE implements ISpartanWillWe
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(stack.hasTagCompound()) {
-            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + this.getCurrentType(stack).getName().toLowerCase()));
-        }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-    }
-
-    @Override
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
-        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
-        if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getBaseAttackDamage(), 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getBaseAttackSpeed() - 4.0, 0));
-        }
-        return multimap;
-    }
-
-    @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+    public @NotNull Multimap<String, AttributeModifier> getAttributeModifiers(@NotNull EntityEquipmentSlot slot, @NotNull ItemStack stack) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.create();
         if (slot == EntityEquipmentSlot.MAINHAND) {
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getDamageOfActivatedWeapon(stack), 0));
@@ -132,8 +123,18 @@ public class ItemSentientJavelin extends ItemJavelinSE implements ISpartanWillWe
     }
 
     @Override
-    public float getDirectAttackDamage() {
-        return this.directAttackDamage;
+    public boolean onLeftClickEntity(@NotNull ItemStack stack, @NotNull EntityPlayer player, @NotNull Entity targetEntity) {
+        this.recalculatePowers(stack, player.world, player);
+        double drain = this.getDrainOfActivatedWeapon(stack);
+        if (drain > 0.0) {
+            EnumDemonWillType type = this.getCurrentType(stack);
+            double soulsRemaining = PlayerDemonWillHandler.getTotalDemonWill(type, player);
+            if (drain > soulsRemaining) {
+                return false;
+            }
+            PlayerDemonWillHandler.consumeDemonWill(type, player, drain);
+        }
+        return super.onLeftClickEntity(stack, player, targetEntity);
     }
 
     @Override

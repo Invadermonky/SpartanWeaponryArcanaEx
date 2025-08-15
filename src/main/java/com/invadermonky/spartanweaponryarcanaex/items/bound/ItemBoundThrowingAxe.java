@@ -27,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -45,34 +46,24 @@ public class ItemBoundThrowingAxe extends ItemThrowingAxeSE implements ISpartanB
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public @NotNull ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
-        if(playerIn.isSneaking()) {
+        if (playerIn.isSneaking()) {
             this.setActivatedState(stack, !this.getActivated(stack));
         }
         this.syncWeaponValues(stack);
         return this.getActivated(stack) ? super.onItemRightClick(worldIn, playerIn, hand) : new ActionResult<>(EnumActionResult.FAIL, stack);
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        String desc = StringHelper.getTranslationKey(this.getRegistryName().getPath(), "tooltip", "desc");
-        if(I18n.hasKey(desc)) {
-            tooltip.add(I18n.format(desc));
-        }
-        tooltip.add(TextHelper.localize("tooltip.bloodmagic." + (this.getActivated(stack) ? "activated" : "deactivated")));
-        Binding binding = this.getBinding(stack);
-        if(binding != null) {
-            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentOwner", binding.getOwnerName()));
-        }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public float getDirectAttackDamage() {
+        return this.directAttackDamage;
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot slot) {
+    public @NotNull Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot slot) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.create();
-        if(slot == EntityEquipmentSlot.MAINHAND) {
+        if (slot == EntityEquipmentSlot.MAINHAND) {
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 2.0, 0));
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getBaseAttackSpeed() - 4.0, 0));
         }
@@ -80,31 +71,41 @@ public class ItemBoundThrowingAxe extends ItemThrowingAxeSE implements ISpartanB
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
-        if(slot == EntityEquipmentSlot.MAINHAND) {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getActivated(stack) ? this.getDirectAttackDamage() : 2.0, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getBaseAttackSpeed() - 4.0, 0));
-        }
-        return multimap;
-    }
-
-    @Override
-    public EnumAction getItemUseAction(ItemStack stack) {
-        return this.getActivated(stack) ? super.getItemUseAction(stack) : EnumAction.NONE;
-    }
-
-    @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-        if(this.getMaxItemUseDuration(stack) - entityLiving.getItemInUseCount() <= 2) {
+        if (this.getMaxItemUseDuration(stack) - entityLiving.getItemInUseCount() <= 2) {
             return;
         }
         super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
     }
 
     @Override
-    public float getDirectAttackDamage() {
-        return this.directAttackDamage;
+    public @NotNull EnumAction getItemUseAction(ItemStack stack) {
+        return this.getActivated(stack) ? super.getItemUseAction(stack) : EnumAction.NONE;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        String desc = StringHelper.getTranslationKey(this.getRegistryName().getPath(), "tooltip", "desc");
+        if (I18n.hasKey(desc)) {
+            tooltip.add(I18n.format(desc));
+        }
+        tooltip.add(TextHelper.localize("tooltip.bloodmagic." + (this.getActivated(stack) ? "activated" : "deactivated")));
+        Binding binding = this.getBinding(stack);
+        if (binding != null) {
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentOwner", binding.getOwnerName()));
+        }
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
+    public @NotNull Multimap<String, AttributeModifier> getAttributeModifiers(@NotNull EntityEquipmentSlot slot, @NotNull ItemStack stack) {
+        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
+        if (slot == EntityEquipmentSlot.MAINHAND) {
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getActivated(stack) ? this.getDirectAttackDamage() : 2.0, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getBaseAttackSpeed() - 4.0, 0));
+        }
+        return multimap;
     }
 
     @Override

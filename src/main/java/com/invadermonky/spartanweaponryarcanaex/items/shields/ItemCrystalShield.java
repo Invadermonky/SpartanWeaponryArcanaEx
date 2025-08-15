@@ -28,6 +28,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,7 +57,7 @@ public class ItemCrystalShield {
                 this.inertVariant = inertVariant;
                 this.isInfused = inertVariant != Items.AIR;
                 this.addPropertyOverride(new ResourceLocation(SpartanWeaponryArcanaEx.MOD_ID, "time"), (stack, worldIn, entityIn) -> {
-                    if(worldIn != null) {
+                    if (worldIn != null) {
                         int time = ((int) (worldIn.getTotalWorldTime() % 28L)) / 2;
                         switch (time) {
                             case 1: //2, 3
@@ -78,16 +79,6 @@ public class ItemCrystalShield {
                 });
             }
 
-            @Override
-            public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-                if(this.isInCreativeTab(tab)) {
-                    ItemStack stack = new ItemStack(this);
-                    CrystalProperties maxCelestial = CrystalProperties.getMaxCelestialProperties();
-                    ItemCrystalSword.setToolProperties(stack, ToolCrystalProperties.merge(maxCelestial, maxCelestial));
-                    items.add(stack);
-                }
-            }
-
             @Nonnull
             @Override
             public Item getInertVariant() {
@@ -99,9 +90,16 @@ public class ItemCrystalShield {
                 return 1800;
             }
 
+            @Nullable
+            @Override
+            public CrystalProperties provideCurrentPropertiesOrNull(ItemStack stack) {
+                return ItemCrystalSword.getToolProperties(stack);
+            }
+
             @Override
             public void damageShield(ItemStack shieldStack, EntityPlayer player, Entity attacker, float damage) {
-                if (!this.isInfused) return;
+                if (!this.isInfused)
+                    return;
 
                 World world = player.world;
                 if (!world.isRemote && world.rand.nextFloat() < 0.1f) {
@@ -112,12 +110,6 @@ public class ItemCrystalShield {
                 }
             }
 
-            @Override
-            public void setDamage(ItemStack stack, int damage) {
-                super.setDamage(stack, 0);
-                this.damageProperties(stack, damage);
-            }
-
             private void damageProperties(ItemStack stack, int damage) {
                 ToolCrystalProperties prop = ItemCrystalSword.getToolProperties(stack);
                 if (prop == null) {
@@ -125,15 +117,15 @@ public class ItemCrystalShield {
                 } else if (prop.getSize() <= 0) {
                     super.setDamage(stack, 11);
                 } else if (damage >= 0) {
-                    for(int i = 0; i < damage; ++i) {
-                        double chance = Math.pow((double)prop.getCollectiveCapability() / 100.0, 2.0);
-                        if (chance >= (double)itemRand.nextFloat()) {
+                    for (int i = 0; i < damage; ++i) {
+                        double chance = Math.pow((double) prop.getCollectiveCapability() / 100.0, 2.0);
+                        if (chance >= (double) itemRand.nextFloat()) {
                             if (itemRand.nextInt(3) == 0) {
                                 prop = prop.copyDamagedCutting();
                             }
 
-                            double purity = (double)prop.getPurity() / 100.0;
-                            if (purity <= (double)itemRand.nextFloat() && itemRand.nextInt(3) == 0) {
+                            double purity = (double) prop.getPurity() / 100.0;
+                            if (purity <= (double) itemRand.nextFloat() && itemRand.nextInt(3) == 0) {
                                 prop = prop.copyDamagedCutting();
                             }
                         }
@@ -150,36 +142,55 @@ public class ItemCrystalShield {
             }
 
             @Override
+            public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+                return false;
+            }
+
+            @Override
             public void addEffectsTooltip(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
                 tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
 
-                if(this.isInfused) {
+                if (this.isInfused) {
                     tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey("material_infused_crystal", "tooltip")));
-                    if(GuiScreen.isShiftKeyDown()) {
-                        tooltip.add(TextFormatting.ITALIC+ "  " + I18n.format(StringHelper.getTranslationKey("material_infused_crystal_shield", "tooltip", "desc")));
+                    if (GuiScreen.isShiftKeyDown()) {
+                        tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_infused_crystal_shield", "tooltip", "desc")));
                     }
                 } else {
                     tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey("material_crystal", "tooltip")));
-                    if(GuiScreen.isShiftKeyDown()) {
-                        tooltip.add(TextFormatting.ITALIC+ "  " + I18n.format(StringHelper.getTranslationKey("material_crystal_shield", "tooltip", "desc")));
+                    if (GuiScreen.isShiftKeyDown()) {
+                        tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_crystal_shield", "tooltip", "desc")));
                     }
                 }
             }
 
-            @Nullable
             @Override
-            public CrystalProperties provideCurrentPropertiesOrNull(ItemStack stack) {
-                return ItemCrystalSword.getToolProperties(stack);
+            public boolean isEnchantable(@NotNull ItemStack stack) {
+                return true;
             }
 
             @Override
-            public boolean hasCustomEntity(ItemStack stack) {
+            public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
+                if (this.isInCreativeTab(tab)) {
+                    ItemStack stack = new ItemStack(this);
+                    CrystalProperties maxCelestial = CrystalProperties.getMaxCelestialProperties();
+                    ItemCrystalSword.setToolProperties(stack, ToolCrystalProperties.merge(maxCelestial, maxCelestial));
+                    items.add(stack);
+                }
+            }
+
+            @Override
+            public boolean isRepairable() {
+                return false;
+            }
+
+            @Override
+            public boolean hasCustomEntity(@NotNull ItemStack stack) {
                 return true;
             }
 
             @Nullable
             @Override
-            public Entity createEntity(World world, Entity ei, ItemStack itemstack) {
+            public Entity createEntity(@NotNull World world, Entity ei, @NotNull ItemStack itemstack) {
                 EntityCrystalWeapon newItem = new EntityCrystalWeapon(ei.world, ei.posX, ei.posY, ei.posZ, itemstack);
                 newItem.motionX = ei.motionX;
                 newItem.motionY = ei.motionY;
@@ -193,18 +204,9 @@ public class ItemCrystalShield {
             }
 
             @Override
-            public boolean isEnchantable(ItemStack stack) {
-                return true;
-            }
-
-            @Override
-            public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-                return false;
-            }
-
-            @Override
-            public boolean isRepairable() {
-                return false;
+            public void setDamage(@NotNull ItemStack stack, int damage) {
+                super.setDamage(stack, 0);
+                this.damageProperties(stack, damage);
             }
         }
 

@@ -8,11 +8,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class CreativeTabSE {
     public static final CreativeTabs TAB_SE = new CreativeTabs(SpartanWeaponryArcanaEx.MOD_ID) {
         @Override
-        public ItemStack createIcon() {
+        public @NotNull ItemStack createIcon() {
             Item icon = getVanillaItem();
             return new ItemStack(icon != null ? icon : Items.AIR);
         }

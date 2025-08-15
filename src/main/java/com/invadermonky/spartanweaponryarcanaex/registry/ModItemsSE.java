@@ -12,6 +12,7 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = SpartanWeaponryArcanaEx.MOD_ID)
 public class ModItemsSE {
+    private static final List<Item> itemsToRegister = new ArrayList<>();
     //Astral Sorcery
     public static Item crystal_battleaxe = null;
     public static Item crystal_boomerang = null;
@@ -39,7 +40,6 @@ public class ModItemsSE {
     public static Item crystal_throwing_axe = null;
     public static Item crystal_throwing_knife = null;
     public static Item crystal_warhammer = null;
-
     public static Item infused_crystal_battleaxe = null;
     public static Item infused_crystal_boomerang = null;
     public static Item infused_crystal_crossbow = null;
@@ -66,7 +66,6 @@ public class ModItemsSE {
     public static Item infused_crystal_throwing_axe = null;
     public static Item infused_crystal_throwing_knife = null;
     public static Item infused_crystal_warhammer = null;
-
     //Bewitchment
     public static Item cold_iron_battleaxe = null;
     public static Item cold_iron_boomerang = null;
@@ -94,7 +93,6 @@ public class ModItemsSE {
     public static Item cold_iron_throwing_axe = null;
     public static Item cold_iron_throwing_knife = null;
     public static Item cold_iron_warhammer = null;
-
     //Blood Magic
     public static Item bound_battleaxe = null;
     public static Item bound_boomerang = null;
@@ -122,7 +120,6 @@ public class ModItemsSE {
     public static Item bound_throwing_axe = null;
     public static Item bound_throwing_knife = null;
     public static Item bound_warhammer = null;
-
     public static Item sentient_battleaxe = null;
     public static Item sentient_boomerang = null;
     public static Item sentient_crossbow = null;
@@ -149,7 +146,6 @@ public class ModItemsSE {
     public static Item sentient_throwing_axe = null;
     public static Item sentient_throwing_knife = null;
     public static Item sentient_warhammer = null;
-
     //Nature's Aura
     public static Item infused_iron_battleaxe = null;
     public static Item infused_iron_boomerang = null;
@@ -177,7 +173,6 @@ public class ModItemsSE {
     public static Item infused_iron_throwing_axe = null;
     public static Item infused_iron_throwing_knife = null;
     public static Item infused_iron_warhammer = null;
-
     //Roots
     public static Item living_battleaxe = null;
     public static Item living_boomerang = null;
@@ -203,7 +198,6 @@ public class ModItemsSE {
     public static Item living_throwing_axe = null;
     public static Item living_throwing_knife = null;
     public static Item living_warhammer = null;
-
     public static Item runed_battleaxe = null;
     public static Item runed_boomerang = null;
     public static Item runed_crossbow = null;
@@ -230,7 +224,6 @@ public class ModItemsSE {
     public static Item runed_throwing_axe = null;
     public static Item runed_throwing_knife = null;
     public static Item runed_warhammer = null;
-
     public static Item terrastone_battleaxe = null;
     public static Item terrastone_boomerang = null;
     public static Item terrastone_dagger = null;
@@ -255,27 +248,24 @@ public class ModItemsSE {
     public static Item terrastone_throwing_axe = null;
     public static Item terrastone_throwing_knife = null;
     public static Item terrastone_warhammer = null;
-
     public static Item wildwood_crossbow = null;
     public static Item wildwood_longbow = null;
 
-    private static final List<Item> itemsToRegister = new ArrayList<>();
-
     private static void addItemToRegister(Item item, boolean toLoad) {
-        if(!toLoad) {
+        if (!toLoad) {
             item = null;
             return;
         }
         itemsToRegister.add(item);
     }
-    
+
     private static void addItemToRegister(Item item) {
         addItemToRegister(item, true);
     }
 
     public static void loadOrderedItemsToRegister() {
         //Shield
-        if(ModIds.spartan_shields.isLoaded) {
+        if (ModIds.spartan_shields.isLoaded) {
             addItemToRegister(crystal_shield_basic, !com.oblivioussp.spartanshields.util.ConfigHandler.disableStandardShields);
             addItemToRegister(crystal_shield_tower, !com.oblivioussp.spartanshields.util.ConfigHandler.disableTowerShields);
             addItemToRegister(infused_crystal_shield_basic, !com.oblivioussp.spartanshields.util.ConfigHandler.disableStandardShields);
@@ -480,7 +470,7 @@ public class ModItemsSE {
 
         //Longbow
         if (!ConfigHandler.disableLongbow) {
-            if(!ConfigHandler.woodenLongbowOnly) {
+            if (!ConfigHandler.woodenLongbowOnly) {
                 addItemToRegister(crystal_longbow);
                 addItemToRegister(infused_crystal_longbow);
                 addItemToRegister(cold_iron_longbow);
@@ -494,7 +484,7 @@ public class ModItemsSE {
 
         //Crossbow
         if (!ConfigHandler.disableCrossbow) {
-            if(!ConfigHandler.woodenCrossbowOnly) {
+            if (!ConfigHandler.woodenCrossbowOnly) {
                 addItemToRegister(crystal_crossbow);
                 addItemToRegister(infused_crystal_crossbow);
                 addItemToRegister(cold_iron_crossbow);

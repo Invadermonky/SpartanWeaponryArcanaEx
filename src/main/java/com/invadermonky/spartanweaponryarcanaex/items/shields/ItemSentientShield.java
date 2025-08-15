@@ -27,6 +27,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -48,14 +49,14 @@ public class ItemSentientShield {
             }
 
             @Override
-            public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-                if(entityIn instanceof EntityLivingBase && ItemStack.areItemStacksEqual(((EntityLivingBase) entityIn).getHeldItemOffhand(), stack)) {
+            public void onUpdate(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull Entity entityIn, int itemSlot, boolean isSelected) {
+                if (entityIn instanceof EntityLivingBase && ItemStack.areItemStacksEqual(((EntityLivingBase) entityIn).getHeldItemOffhand(), stack)) {
                     EnumDemonWillType type = this.getCurrentType(stack);
-                    if(type == EnumDemonWillType.CORROSIVE) {
-                        if(((EntityLivingBase) entityIn).isPotionActive(MobEffects.POISON)) {
+                    if (type == EnumDemonWillType.CORROSIVE) {
+                        if (((EntityLivingBase) entityIn).isPotionActive(MobEffects.POISON)) {
                             ((EntityLivingBase) entityIn).removePotionEffect(MobEffects.POISON);
                         }
-                        if(((EntityLivingBase) entityIn).isPotionActive(MobEffects.WITHER)) {
+                        if (((EntityLivingBase) entityIn).isPotionActive(MobEffects.WITHER)) {
                             ((EntityLivingBase) entityIn).removePotionEffect(MobEffects.WITHER);
                         }
                     }
@@ -64,42 +65,9 @@ public class ItemSentientShield {
             }
 
             @Override
-            public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-                return repair.getItem() == RegistrarBloodMagicItems.ITEM_DEMON_CRYSTAL || super.getIsRepairable(toRepair, repair);
-            }
-
-            @Override
-            public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-                return oldStack.getItem() != newStack.getItem() || slotChanged;
-            }
-
-            @Override
-            public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-                this.recalculatePowers(playerIn.getHeldItem(handIn), worldIn, playerIn);
-                return super.onItemRightClick(worldIn, playerIn, handIn);
-            }
-
-            @Override
-            public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-                if(stack.hasTagCompound()) {
-                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + this.getCurrentType(stack).getName().toLowerCase()));
-                }
-                super.addInformation(stack, worldIn, tooltip, flagIn);
-            }
-
-            @Override
-            public void addEffectsTooltip(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-                tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
-                tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey("material_sentient", "tooltip")));
-                if(GuiScreen.isShiftKeyDown()) {
-                    tooltip.add(TextFormatting.ITALIC+ "  " + I18n.format(StringHelper.getTranslationKey("material_sentient", "tooltip", "desc")));
-                }
-            }
-
-            @Override
-            public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+            public @NotNull Multimap<String, AttributeModifier> getAttributeModifiers(@NotNull EntityEquipmentSlot slot, @NotNull ItemStack stack) {
                 Multimap<String, AttributeModifier> multimap = HashMultimap.create();
-                if(slot == EntityEquipmentSlot.OFFHAND) {
+                if (slot == EntityEquipmentSlot.OFFHAND) {
                     //  Default: bonus armor based on will (any)
                     multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(UUID.fromString("f9c58d75-afcf-43ce-956e-4fb794356ec2"), "Armor modifier", this.getBonusArmorOfShield(stack), 0));
                     //  Corrosive: Poison immunity (done)
@@ -110,6 +78,39 @@ public class ItemSentientShield {
                     multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(new UUID(0L, 94021L), "Armor modifier", this.getMovementSpeedOfShield(stack), 2));
                 }
                 return multimap;
+            }
+
+            @Override
+            public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+                return oldStack.getItem() != newStack.getItem() || slotChanged;
+            }
+
+            @Override
+            public @NotNull ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull EntityPlayer playerIn, @NotNull EnumHand handIn) {
+                this.recalculatePowers(playerIn.getHeldItem(handIn), worldIn, playerIn);
+                return super.onItemRightClick(worldIn, playerIn, handIn);
+            }
+
+            @Override
+            public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+                if (stack.hasTagCompound()) {
+                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + this.getCurrentType(stack).getName().toLowerCase()));
+                }
+                super.addInformation(stack, worldIn, tooltip, flagIn);
+            }
+
+            @Override
+            public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+                return repair.getItem() == RegistrarBloodMagicItems.ITEM_DEMON_CRYSTAL || super.getIsRepairable(toRepair, repair);
+            }
+
+            @Override
+            public void addEffectsTooltip(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+                tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
+                tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey("material_sentient", "tooltip")));
+                if (GuiScreen.isShiftKeyDown()) {
+                    tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_sentient", "tooltip", "desc")));
+                }
             }
         }
         return new ItemSentientShieldBasic();

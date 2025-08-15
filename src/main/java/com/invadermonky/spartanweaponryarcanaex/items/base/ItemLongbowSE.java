@@ -24,6 +24,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -42,7 +43,7 @@ public class ItemLongbowSE extends ItemLongbow {
 
     public ItemLongbowSE setNoReequipAnimation() {
         this.doReequip = false;
-		return this;
+        return this;
     }
 
     public ItemLongbowSE setHasCustomDisplayName() {
@@ -51,23 +52,33 @@ public class ItemLongbowSE extends ItemLongbow {
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
-        return this.hasCustomDisplayName ? I18n.translateToLocalFormatted(StringHelper.getTranslationKey(this.getRegistryName().getPath(), "item", "name")) : super.getItemStackDisplayName(stack);
+    public boolean shouldCauseReequipAnimation(@NotNull ItemStack oldStack, @NotNull ItemStack newStack, boolean slotChanged) {
+        return this.doReequip ? super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) : oldStack.getItem() != newStack.getItem() || slotChanged;
     }
 
+    @Nullable
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return this.doReequip ? super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) : oldStack.getItem() != newStack.getItem() || slotChanged;
+    public ICapabilityProvider initCapabilities(@NotNull ItemStack stack, @Nullable NBTTagCompound nbt) {
+        if (this.material != null) {
+            for (WeaponProperty property : this.material.getAllWeaponProperties()) {
+                if (property instanceof WeaponPropertyWithCallbackSE) {
+                    ICapabilityProvider capability = ((WeaponPropertyWithCallbackSE) property).initCapabilities(stack, nbt);
+                    if (capability != null)
+                        return capability;
+                }
+            }
+        }
+        return super.initCapabilities(stack, nbt);
     }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         if (entityLiving instanceof EntityPlayer) {
-            EntityPlayer entityplayer = (EntityPlayer)entityLiving;
+            EntityPlayer entityplayer = (EntityPlayer) entityLiving;
             boolean flag = entityplayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
             ItemStack itemstack = this.findAmmo(entityplayer);
             int i = this.getMaxItemUseDuration(stack) - timeLeft;
-            i = ForgeEventFactory.onArrowLoose(stack, worldIn, (EntityPlayer)entityLiving, i, itemstack != null || flag);
+            i = ForgeEventFactory.onArrowLoose(stack, worldIn, (EntityPlayer) entityLiving, i, !itemstack.isEmpty() || flag);
             if (i < 0) {
                 return;
             }
@@ -78,10 +89,10 @@ public class ItemLongbowSE extends ItemLongbow {
                 }
 
                 float f = this.getArrowSpeed(i);
-                if ((double)f >= 0.1) {
-                    boolean flag1 = entityplayer.capabilities.isCreativeMode || itemstack.getItem() instanceof ItemArrow && ((ItemArrow)itemstack.getItem()).isInfinite(itemstack, stack, entityplayer);
+                if ((double) f >= 0.1) {
+                    boolean flag1 = entityplayer.capabilities.isCreativeMode || itemstack.getItem() instanceof ItemArrow && ((ItemArrow) itemstack.getItem()).isInfinite(itemstack, stack, entityplayer);
                     if (!worldIn.isRemote) {
-                        ItemArrow itemarrow = (ItemArrow)((itemstack.getItem() instanceof ItemArrow ? itemstack.getItem() : Items.ARROW));
+                        ItemArrow itemarrow = (ItemArrow) ((itemstack.getItem() instanceof ItemArrow ? itemstack.getItem() : Items.ARROW));
                         EntityArrow entityarrow = itemarrow.createArrow(worldIn, itemstack, entityplayer);
                         entityarrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 0.5F);
                         if (i >= this.getDrawTicks()) {
@@ -90,7 +101,7 @@ public class ItemLongbowSE extends ItemLongbow {
 
                         int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
                         if (j > 0) {
-                            entityarrow.setDamage(entityarrow.getDamage() + (double)j * 0.5 + 0.5);
+                            entityarrow.setDamage(entityarrow.getDamage() + (double) j * 0.5 + 0.5);
                         }
 
                         int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
@@ -107,9 +118,9 @@ public class ItemLongbowSE extends ItemLongbow {
                             entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
                         }
 
-                        if(this.material != null) {
-                            for(WeaponProperty property : this.material.getAllWeaponProperties()) {
-                                if(property instanceof WeaponPropertyWithCallbackSE) {
+                        if (this.material != null) {
+                            for (WeaponProperty property : this.material.getAllWeaponProperties()) {
+                                if (property instanceof WeaponPropertyWithCallbackSE) {
                                     ((WeaponPropertyWithCallbackSE) property).applyAttributeToArrow(worldIn, entityarrow, entityplayer, stack);
                                 }
                             }
@@ -130,18 +141,8 @@ public class ItemLongbowSE extends ItemLongbow {
         }
     }
 
-    @Nullable
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        if(this.material != null) {
-            for (WeaponProperty property : this.material.getAllWeaponProperties()) {
-                if (property instanceof WeaponPropertyWithCallbackSE) {
-                    ICapabilityProvider capability = ((WeaponPropertyWithCallbackSE) property).initCapabilities(stack, nbt);
-                    if(capability != null)
-                        return capability;
-                }
-            }
-        }
-        return super.initCapabilities(stack, nbt);
+    public @NotNull String getItemStackDisplayName(ItemStack stack) {
+        return this.hasCustomDisplayName ? I18n.translateToLocalFormatted(StringHelper.getTranslationKey(this.getRegistryName().getPath(), "item", "name")) : super.getItemStackDisplayName(stack);
     }
 }

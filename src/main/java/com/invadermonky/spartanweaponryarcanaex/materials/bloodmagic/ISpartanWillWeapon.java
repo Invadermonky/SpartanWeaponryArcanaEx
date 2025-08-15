@@ -84,8 +84,8 @@ public interface ISpartanWillWeapon extends IDemonWillWeapon, IMultiWillTool, IS
 
     default int getLevel(ItemStack stack, double soulsRemaining) {
         int level = -1;
-        for(int i = 0; i < Swords.soulBracket.length; i++) {
-            if(soulsRemaining >= (double) Swords.soulBracket[i]) {
+        for (int i = 0; i < Swords.soulBracket.length; i++) {
+            if (soulsRemaining >= (double) Swords.soulBracket[i]) {
                 level = i;
             } else {
                 break;
@@ -95,7 +95,7 @@ public interface ISpartanWillWeapon extends IDemonWillWeapon, IMultiWillTool, IS
     }
 
     default double getExtraDamage(EnumDemonWillType type, int willBracket) {
-        if(willBracket < 0) {
+        if (willBracket < 0) {
             return 0.0;
         } else {
             double damage;
@@ -122,7 +122,7 @@ public interface ISpartanWillWeapon extends IDemonWillWeapon, IMultiWillTool, IS
     }
 
     default double getAttackSpeedModifier(EnumDemonWillType type, int willBracket) {
-        switch(type) {
+        switch (type) {
             case DESTRUCTIVE:
                 return Swords.destructiveAttackSpeedModifier[willBracket];
             case VENGEFUL:
@@ -141,12 +141,12 @@ public interface ISpartanWillWeapon extends IDemonWillWeapon, IMultiWillTool, IS
     }
 
     default void applyEffectToEntity(EnumDemonWillType type, int willBracket, EntityLivingBase target, EntityLivingBase attacker) {
-        switch(type) {
+        switch (type) {
             case CORROSIVE:
                 target.addPotionEffect(new PotionEffect(MobEffects.WITHER, Swords.poisonTime[willBracket], Swords.poisonLevel[willBracket]));
                 break;
             case STEADFAST:
-                if(!target.isEntityAlive()) {
+                if (!target.isEntityAlive()) {
                     float absorption = attacker.getAbsorptionAmount();
                     attacker.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, Swords.absorptionTime[willBracket], 127));
                     attacker.setAbsorptionAmount((float) Math.min((absorption + target.getMaxHealth() * 0.05f), Swords.maxAbsorptionHearts));
@@ -180,11 +180,11 @@ public interface ISpartanWillWeapon extends IDemonWillWeapon, IMultiWillTool, IS
     @Override
     default boolean spawnSentientEntityOnDrop(ItemStack stack, EntityPlayer player) {
         World world = player.world;
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             this.recalculatePowers(stack, world, player);
             EnumDemonWillType type = this.getCurrentType(stack);
             double soulsRemaining = PlayerDemonWillHandler.getTotalDemonWill(type, player);
-            if(soulsRemaining < 1024.0) {
+            if (soulsRemaining < 1024.0) {
                 return false;
             } else {
                 PlayerDemonWillHandler.consumeDemonWill(type, player, 100.0);

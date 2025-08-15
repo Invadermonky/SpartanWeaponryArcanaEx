@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -36,14 +37,14 @@ public class ItemBoundLongbow extends ItemLongbowSE implements IBindable {
     }
 
     @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+    public boolean canApplyAtEnchantingTable(@NotNull ItemStack stack, @NotNull Enchantment enchantment) {
         return enchantment != Enchantments.INFINITY || super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
-        if(entityLiving instanceof EntityPlayer && !worldIn.isRemote) {
+        if (entityLiving instanceof EntityPlayer && !worldIn.isRemote) {
             EntityPlayer player = (EntityPlayer) entityLiving;
             Binding binding = this.getBinding(stack);
             if (binding != null) {
@@ -52,23 +53,8 @@ public class ItemBoundLongbow extends ItemLongbowSE implements IBindable {
         }
     }
 
-
-
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        String desc = StringHelper.getTranslationKey(this.getRegistryName().getPath(), "tooltip", "desc");
-        if(I18n.hasKey(desc)) {
-            tooltip.add(I18n.format(desc));
-        }
-        Binding binding = this.getBinding(stack);
-        if(binding != null) {
-            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentOwner", binding.getOwnerName()));
-        }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-    }
-
-    @Override
-    protected ItemStack findAmmo(EntityPlayer player) {
+    protected @NotNull ItemStack findAmmo(EntityPlayer player) {
         if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
             return player.getHeldItem(EnumHand.OFF_HAND);
         } else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND))) {
@@ -76,13 +62,26 @@ public class ItemBoundLongbow extends ItemLongbowSE implements IBindable {
         }
 
         ItemStack bowStack;
-        if(player.getHeldItemMainhand().getItem() == this) {
+        if (player.getHeldItemMainhand().getItem() == this) {
             bowStack = player.getHeldItemMainhand();
-        } else if(player.getHeldItemOffhand().getItem() == this) {
+        } else if (player.getHeldItemOffhand().getItem() == this) {
             bowStack = player.getHeldItemOffhand();
         } else {
             return ItemStack.EMPTY;
         }
         return this.getBinding(bowStack) != null ? new ItemStack(Items.SPECTRAL_ARROW) : ItemStack.EMPTY;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        String desc = StringHelper.getTranslationKey(this.getRegistryName().getPath(), "tooltip", "desc");
+        if (I18n.hasKey(desc)) {
+            tooltip.add(I18n.format(desc));
+        }
+        Binding binding = this.getBinding(stack);
+        if (binding != null) {
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentOwner", binding.getOwnerName()));
+        }
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

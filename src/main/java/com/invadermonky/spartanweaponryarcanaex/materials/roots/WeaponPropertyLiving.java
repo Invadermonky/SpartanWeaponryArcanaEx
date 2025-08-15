@@ -29,7 +29,35 @@ public class WeaponPropertyLiving extends WeaponPropertyWithCallbackSE implement
     public static final ToolMaterialEx TERRASTONE_MATERIAL_EX;
     public static final ToolMaterialEx RUNED_MATERIAL_EX;
     public static final ToolMaterialEx WILDWOOD_MATERIAL_EX;
+    private final int repairChance;
 
+    public WeaponPropertyLiving(String propType, int repairChance) {
+        super(propType);
+        this.repairChance = Math.max(1, repairChance);
+    }
+
+    @Override
+    public void onItemUpdate(ToolMaterialEx material, ItemStack stack, World world, EntityLivingBase entity, int itemSlot, boolean isSelected) {
+        if (!world.isRemote && entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entity;
+            if (player.isHandActive() && isSelected) {
+                return;
+            }
+
+            if (stack.getItemDamage() > 0 && world.rand.nextInt(this.repairChance) == 0) {
+                stack.setItemDamage(stack.getItemDamage() - 1);
+            }
+        }
+    }
+
+    @Override
+    public void onTooltip(ToolMaterialEx toolMaterialEx, ItemStack itemStack, World world, List<String> tooltip, ITooltipFlag iTooltipFlag) {
+        tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
+        tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey(LibNames.material_wildwood, "tooltip")));
+        if (GuiScreen.isShiftKeyDown()) {
+            tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey(LibNames.material_wildwood, "tooltip", "desc")));
+        }
+    }
     static {
         LIVING_PROPERTY = new WeaponPropertyLiving(LibNames.material_living, 40);
         LIVING_MATERIAL_EX = new ToolMaterialEx(
@@ -72,35 +100,5 @@ public class WeaponPropertyLiving extends WeaponPropertyWithCallbackSE implement
                 WILDWOOD_PROPERTY
         );
 
-    }
-
-    private final int repairChance;
-
-    public WeaponPropertyLiving(String propType, int repairChance) {
-        super(propType);
-        this.repairChance = Math.max(1, repairChance);
-    }
-
-    @Override
-    public void onItemUpdate(ToolMaterialEx material, ItemStack stack, World world, EntityLivingBase entity, int itemSlot, boolean isSelected) {
-        if(!world.isRemote && entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
-            if(player.isHandActive() && isSelected) {
-                return;
-            }
-
-            if (stack.getItemDamage() > 0 && world.rand.nextInt(this.repairChance) == 0) {
-                stack.setItemDamage(stack.getItemDamage() - 1);
-            }
-        }
-    }
-
-    @Override
-    public void onTooltip(ToolMaterialEx toolMaterialEx, ItemStack itemStack, World world, List<String> tooltip, ITooltipFlag iTooltipFlag) {
-        tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
-        tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey(LibNames.material_wildwood, "tooltip")));
-        if(GuiScreen.isShiftKeyDown()) {
-            tooltip.add(TextFormatting.ITALIC+ "  " + I18n.format(StringHelper.getTranslationKey(LibNames.material_wildwood, "tooltip", "desc")));
-        }
     }
 }

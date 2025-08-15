@@ -39,10 +39,10 @@ public abstract class WeaponPropertyWithCallbackSE extends WeaponPropertyWithCal
      * Used to set any additional data to the arrow entity prior to it being spawned into the world. You can adjust the velocity
      * or add NBT data here.
      *
-     * @param world The world the arrow is being spawned in.
+     * @param world       The world the arrow is being spawned in.
      * @param entityArrow The arrow entity being spawned.
-     * @param player The player firing the bow.
-     * @param bowStack The bow firing the arrow.
+     * @param player      The player firing the bow.
+     * @param bowStack    The bow firing the arrow.
      */
     public void applyAttributeToArrow(World world, EntityArrow entityArrow, EntityPlayer player, ItemStack bowStack) {}
 }

@@ -29,30 +29,18 @@ public class WeaponPropertyBound extends WeaponPropertyWithCallbackSE implements
     public static final WeaponPropertyBound BOUND_PROPERTY;
     public static final ToolMaterialEx BOUND_MATERIAL_EX;
 
-    static {
-        BOUND_PROPERTY = new WeaponPropertyBound();
-        BOUND_MATERIAL_EX = new ToolMaterialEx(
-                LibNames.material_bound,
-                RegistrarBloodMagicItems.BOUND_TOOL_MATERIAL,
-                "bindingReagent",
-                SpartanWeaponryArcanaEx.MOD_ID,
-                5.0f,
-                BOUND_PROPERTY
-        );
-    }
-
     public WeaponPropertyBound() {
         super(LibNames.material_bound);
     }
 
     @Override
     public void onItemUpdate(ToolMaterialEx material, ItemStack stack, World world, EntityLivingBase entity, int itemSlot, boolean isSelected) {
-        if(stack.getItem() instanceof ISpartanBoundWeapon) {
+        if (stack.getItem() instanceof ISpartanBoundWeapon) {
             Binding binding = ((ISpartanBoundWeapon) stack.getItem()).getBinding(stack);
-            if(binding == null) {
+            if (binding == null) {
                 ((ISpartanBoundWeapon) stack.getItem()).setActivatedState(stack, false);
             } else {
-                if(entity instanceof EntityPlayer && ((ISpartanBoundWeapon) stack.getItem()).getActivated(stack) && world.getTotalWorldTime() % 80L == 0L) {
+                if (entity instanceof EntityPlayer && ((ISpartanBoundWeapon) stack.getItem()).getActivated(stack) && world.getTotalWorldTime() % 80L == 0L) {
                     NetworkHelper.getSoulNetwork(binding).syphonAndDamage((EntityPlayer) entity, SoulTicket.item(stack, world, entity, 20));
                 }
             }
@@ -66,7 +54,7 @@ public class WeaponPropertyBound extends WeaponPropertyWithCallbackSE implements
 
     @Override
     public void applyAttributeToArrow(World world, EntityArrow entityArrow, EntityPlayer player, ItemStack bowStack) {
-        if(entityArrow instanceof EntitySpectralArrow || entityArrow instanceof EntityBoltSpectral) {
+        if (entityArrow instanceof EntitySpectralArrow || entityArrow instanceof EntityBoltSpectral) {
             entityArrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
         }
     }
@@ -75,8 +63,19 @@ public class WeaponPropertyBound extends WeaponPropertyWithCallbackSE implements
     public void onTooltip(ToolMaterialEx toolMaterialEx, ItemStack itemStack, World world, List<String> tooltip, ITooltipFlag iTooltipFlag) {
         tooltip.add(TextFormatting.DARK_AQUA + I18n.format(StringHelper.getTranslationKey("material_bonus", "tooltip")));
         tooltip.add(TextFormatting.GREEN + "- " + I18n.format(StringHelper.getTranslationKey("material_bound", "tooltip")));
-        if(GuiScreen.isShiftKeyDown()) {
-            tooltip.add(TextFormatting.ITALIC+ "  " + I18n.format(StringHelper.getTranslationKey("material_bound_bow", "tooltip", "desc")));
+        if (GuiScreen.isShiftKeyDown()) {
+            tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_bound_bow", "tooltip", "desc")));
         }
+    }
+    static {
+        BOUND_PROPERTY = new WeaponPropertyBound();
+        BOUND_MATERIAL_EX = new ToolMaterialEx(
+                LibNames.material_bound,
+                RegistrarBloodMagicItems.BOUND_TOOL_MATERIAL,
+                "bindingReagent",
+                SpartanWeaponryArcanaEx.MOD_ID,
+                5.0f,
+                BOUND_PROPERTY
+        );
     }
 }

@@ -7,7 +7,10 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public interface IModCompat extends IProxy {
     void initializeWeapons();
+
     default void initializeRecipes(IForgeRegistry<IRecipe> registry) {}
+
     default void onLivingHurt(LivingHurtEvent event) {}
+
     default void onProjectileImpact(ProjectileImpactEvent event) {}
 }
