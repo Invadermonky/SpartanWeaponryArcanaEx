@@ -39,6 +39,7 @@ public class WeaponPropertyAuraRepair extends WeaponPropertyWithCallbackSE imple
             tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_aura_repair", "tooltip", "desc")));
         }
     }
+
     static {
         AURA_REPAIR_PROPERTY = new WeaponPropertyAuraRepair();
     }

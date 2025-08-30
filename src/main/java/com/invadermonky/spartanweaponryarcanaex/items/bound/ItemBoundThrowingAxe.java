@@ -11,6 +11,7 @@ import com.invadermonky.spartanweaponryarcanaex.materials.bloodmagic.WeaponPrope
 import com.invadermonky.spartanweaponryarcanaex.util.StringHelper;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibNames;
 import com.oblivioussp.spartanweaponry.util.ConfigHandler;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,6 +25,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -56,6 +58,11 @@ public class ItemBoundThrowingAxe extends ItemThrowingAxeSE implements ISpartanB
     }
 
     @Override
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        return true;
+    }
+
+    @Override
     public float getDirectAttackDamage() {
         return this.directAttackDamage;
     }
@@ -68,6 +75,12 @@ public class ItemBoundThrowingAxe extends ItemThrowingAxeSE implements ISpartanB
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getBaseAttackSpeed() - 4.0, 0));
         }
         return multimap;
+    }
+
+    @Override
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        super.hitEntity(stack, target, attacker);
+        return true;
     }
 
     @Override

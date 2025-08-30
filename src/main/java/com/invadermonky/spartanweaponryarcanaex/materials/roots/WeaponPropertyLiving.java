@@ -58,6 +58,7 @@ public class WeaponPropertyLiving extends WeaponPropertyWithCallbackSE implement
             tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey(LibNames.material_wildwood, "tooltip", "desc")));
         }
     }
+
     static {
         LIVING_PROPERTY = new WeaponPropertyLiving(LibNames.material_living, 40);
         LIVING_MATERIAL_EX = new ToolMaterialEx(

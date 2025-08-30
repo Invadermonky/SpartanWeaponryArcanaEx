@@ -45,6 +45,7 @@ public class WeaponPropertyCrystal extends WeaponPropertyWithCallbackSE implemen
             tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_crystal", "tooltip", "desc")));
         }
     }
+
     static {
         CRYSTAL_PROPERTY = new WeaponPropertyCrystal();
         CRYSTAL_MATERIAL_EX = new ToolMaterialEx(

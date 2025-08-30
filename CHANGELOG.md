@@ -1,4 +1,10 @@
 # Changelog
+## 1.12.2-1.0.4
+### Fixed
+- Fixed bug causing Bound Weapons to occasionally break when attacking entities or harvesting blocks
+
+---
+
 ## 1.12.2-1.0.3
 ### Fixed
 - Fixed crash when activating Bound weapons (blame Spartan Weaponry for doing something dumb...)

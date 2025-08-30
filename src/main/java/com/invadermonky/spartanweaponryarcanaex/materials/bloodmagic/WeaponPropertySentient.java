@@ -128,6 +128,7 @@ public class WeaponPropertySentient extends WeaponPropertyWithCallbackSE impleme
             tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_sentient", "tooltip", "desc")));
         }
     }
+
     static {
         SENTIENT_PROPERTY = new WeaponPropertySentient();
         SENTIENT_MATERIAL_EX = new ToolMaterialEx(

@@ -71,6 +71,7 @@ public class WeaponPropertyInfusedCrystal extends WeaponPropertyCrystal {
             tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_infused_crystal_bow", "tooltip", "desc")));
         }
     }
+
     static {
         INFUSED_CRYSTAL_PROPERTY = new WeaponPropertyInfusedCrystal();
         INFUSED_CRYSTAL_MATERIAL_EX = new ToolMaterialEx(

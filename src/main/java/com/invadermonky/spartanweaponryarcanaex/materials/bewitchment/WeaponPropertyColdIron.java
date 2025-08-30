@@ -24,6 +24,7 @@ public class WeaponPropertyColdIron extends WeaponPropertyWithCallbackSE {
          */
         return baseDamage;
     }
+
     static {
         COLD_IRON_PROPERTY = new WeaponPropertyColdIron();
         COLD_IRON_MATERIAL_EX = new ToolMaterialEx(

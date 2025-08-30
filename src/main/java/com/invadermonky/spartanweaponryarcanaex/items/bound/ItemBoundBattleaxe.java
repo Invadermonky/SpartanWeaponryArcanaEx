@@ -14,6 +14,7 @@ import com.oblivioussp.spartanweaponry.util.ConfigHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,6 +43,11 @@ public class ItemBoundBattleaxe extends ItemBattleaxeSE implements ISpartanBound
         this.setNoReequipAnimation();
         this.baseAttackDamage = Math.max(0.5F, this.materialEx.getAttackDamage() * ConfigHandler.damageMultiplierBattleaxe + ConfigHandler.damageBaseBattleaxe - 1.0F);
         this.baseAttackSpeed = ConfigHandler.speedBattleaxe;
+    }
+
+    @Override
+    public boolean onBlockDestroyed(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull IBlockState state, @NotNull BlockPos pos, @NotNull EntityLivingBase entityLiving) {
+        return true;
     }
 
     @Override
@@ -71,6 +78,12 @@ public class ItemBoundBattleaxe extends ItemBattleaxeSE implements ISpartanBound
     @Override
     public float getDirectAttackDamage() {
         return this.directAttackDamage;
+    }
+
+    @Override
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        super.hitEntity(stack, target, attacker);
+        return true;
     }
 
     @Override

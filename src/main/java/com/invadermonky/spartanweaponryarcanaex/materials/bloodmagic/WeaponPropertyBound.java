@@ -67,6 +67,7 @@ public class WeaponPropertyBound extends WeaponPropertyWithCallbackSE implements
             tooltip.add(TextFormatting.ITALIC + "  " + I18n.format(StringHelper.getTranslationKey("material_bound_bow", "tooltip", "desc")));
         }
     }
+
     static {
         BOUND_PROPERTY = new WeaponPropertyBound();
         BOUND_MATERIAL_EX = new ToolMaterialEx(
