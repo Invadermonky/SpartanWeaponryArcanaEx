@@ -1,4 +1,10 @@
 # Changelog
+## 1.12.2-1.0.5
+### Fixed
+- Fixed bug causing Bound Weapons to occasionally break when attacking entities or harvesting blocks (hopefully ***actually*** fixed this time)
+
+---
+
 ## 1.12.2-1.0.4
 ### Fixed
 - Fixed bug causing Bound Weapons to occasionally break when attacking entities or harvesting blocks

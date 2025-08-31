@@ -68,12 +68,6 @@ public class ItemBoundBoomerang extends ItemBoomerangSE implements ISpartanBound
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        super.hitEntity(stack, target, attacker);
-        return true;
-    }
-
-    @Override
     public @NotNull EnumAction getItemUseAction(ItemStack stack) {
         return this.getActivated(stack) ? super.getItemUseAction(stack) : EnumAction.NONE;
     }
@@ -102,6 +96,9 @@ public class ItemBoundBoomerang extends ItemBoomerangSE implements ISpartanBound
         }
         return multimap;
     }
+
+    @Override
+    public void setDamage(ItemStack stack, int damage) {}
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {

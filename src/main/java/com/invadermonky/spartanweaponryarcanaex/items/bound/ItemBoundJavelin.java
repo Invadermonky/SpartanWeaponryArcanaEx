@@ -78,12 +78,6 @@ public class ItemBoundJavelin extends ItemJavelinSE implements ISpartanBoundWeap
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        super.hitEntity(stack, target, attacker);
-        return true;
-    }
-
-    @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         if (this.getMaxItemUseDuration(stack) - entityLiving.getItemInUseCount() <= 2) {
             return;
@@ -120,6 +114,9 @@ public class ItemBoundJavelin extends ItemJavelinSE implements ISpartanBoundWeap
         }
         return multimap;
     }
+
+    @Override
+    public void setDamage(ItemStack stack, int damage) {}
 
     @Override
     public void syncWeaponValues(ItemStack stack) {

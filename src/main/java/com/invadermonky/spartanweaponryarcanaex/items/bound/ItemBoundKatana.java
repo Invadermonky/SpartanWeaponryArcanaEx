@@ -11,10 +11,8 @@ import com.invadermonky.spartanweaponryarcanaex.materials.bloodmagic.WeaponPrope
 import com.invadermonky.spartanweaponryarcanaex.util.StringHelper;
 import com.invadermonky.spartanweaponryarcanaex.util.libs.LibNames;
 import com.oblivioussp.spartanweaponry.util.ConfigHandler;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -43,11 +40,6 @@ public class ItemBoundKatana extends ItemKatanaSE implements ISpartanBoundWeapon
         this.setNoReequipAnimation();
         this.baseAttackDamage = Math.max(0.5F, this.materialEx.getAttackDamage() * ConfigHandler.damageMultiplierKatana + ConfigHandler.damageBaseKatana - 1.0F);
         this.baseAttackSpeed = ConfigHandler.speedKatana;
-    }
-
-    @Override
-    public boolean onBlockDestroyed(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull IBlockState state, @NotNull BlockPos pos, @NotNull EntityLivingBase entityLiving) {
-        return true;
     }
 
     @Override
@@ -81,12 +73,6 @@ public class ItemBoundKatana extends ItemKatanaSE implements ISpartanBoundWeapon
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        super.hitEntity(stack, target, attacker);
-        return true;
-    }
-
-    @Override
     public @NotNull ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (playerIn.isSneaking()) {
@@ -105,6 +91,9 @@ public class ItemBoundKatana extends ItemKatanaSE implements ISpartanBoundWeapon
         }
         return multimap;
     }
+
+    @Override
+    public void setDamage(ItemStack stack, int damage) {}
 
     @Override
     public void syncWeaponValues(ItemStack stack) {
