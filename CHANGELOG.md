@@ -1,4 +1,10 @@
 # Changelog
+## 1.12.2-1.0.6
+### Fixed
+- Fixed bug preventing Astral Sorcery Crystal bows and crossbows from being sharpened in the grindstone
+
+---
+
 ## 1.12.2-1.0.5
 ### Fixed
 - Fixed bug causing Bound Weapons to occasionally break when attacking entities or harvesting blocks (hopefully ***actually*** fixed this time)

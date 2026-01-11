@@ -1,5 +1,6 @@
 package com.invadermonky.spartanweaponryarcanaex.items.crystal;
 
+import com.invadermonky.spartanweaponryarcanaex.api.ISharpenableCrystalWeapon;
 import com.invadermonky.spartanweaponryarcanaex.entities.EntityCrystalWeapon;
 import com.invadermonky.spartanweaponryarcanaex.items.base.ItemCrossbowSE;
 import com.invadermonky.spartanweaponryarcanaex.registry.ModItemsSE;
@@ -26,7 +27,7 @@ import java.util.List;
 
 @Optional.Interface(modid = ModIds.ConstIds.astral_sorcery, iface = "hellfirepvp.astralsorcery.common.item.crystal.CrystalPropertyItem", striprefs = true)
 @Optional.Interface(modid = ModIds.ConstIds.astral_sorcery, iface = "hellfirepvp.astralsorcery.common.item.crystal.ChargedCrystalToolBase", striprefs = true)
-public class ItemCrystalCrossbow extends ItemCrossbowSE implements CrystalPropertyItem, ChargedCrystalToolBase {
+public class ItemCrystalCrossbow extends ItemCrossbowSE implements CrystalPropertyItem, ChargedCrystalToolBase, ISharpenableCrystalWeapon {
     public ItemCrystalCrossbow(String unlocName, ToolMaterialEx material, IWeaponCallback callback) {
         super(unlocName, material, callback);
     }
